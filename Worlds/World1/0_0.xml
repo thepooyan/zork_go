@@ -1,0 +1,32 @@
+<view>
+    <story_note>
+        you are in a room. there's a door on the north side,
+        and a hallway on the east.
+        you wake up.
+        someone's whispering, can you hear me...?
+    </story_note>
+    <people>
+        <person name="ali" description="a tall thin white guy, with a wired smile on his face">
+            you are a crazy homeless person that likes to make unfunny jokes.
+        </person>
+    </people>
+    <objects>
+      <box description="old looking box"></box>
+        <lockedBox id="12s" description="big black metal box">
+          <letter description="there's a red letter">
+                by the time you read this,
+                I shall be gone.
+                and so will you!
+            </letter>
+        </lockedBox>
+        <key id="12s" description="old wired looking key"/>
+    </objects>
+    <hidden_notes>
+        <note keyword="table">
+            there's a code written under the table: 663!
+        </note>
+        <note keyword="rug">
+            second one
+        </note>
+    </hidden_notes>
+</view>
