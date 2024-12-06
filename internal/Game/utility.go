@@ -15,3 +15,10 @@ func Input() string {
   fmt.Scan(&response)
   return response
 }
+
+func GetUserInput(prompt string) string {
+  Outputln(prompt)
+  Output(" => ")
+  response := Input()
+  return response
+}

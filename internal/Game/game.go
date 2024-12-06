@@ -9,8 +9,8 @@ type Game struct {
 
 func StartGame() {
   fmt.Println("starting game...")
-  gameInstance := Game{
-    currentWorld: World{},
+  gameInstance := &Game{
+    currentWorld: World{name: "World1"},
   }
   gameInstance.currentView = gameInstance.currentWorld.GetView(Coordinate{0,0})
   gameInstance.loop()
@@ -18,18 +18,11 @@ func StartGame() {
 
 func (g *Game) loop() {
   for {
-    res := getUserInput(g.describe())
+    res := GetUserInput(g.describe())
     analyzeResponse(res);
   }
 }
 
 func (g *Game) describe() string {
   return g.currentView.storyNote
-}
-
-func getUserInput(prompt string) string {
-  Outputln(prompt)
-  Output(" => ")
-  response := Input()
-  return response
 }

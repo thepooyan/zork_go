@@ -1,16 +1,7 @@
 package Game
 
-type Coordinate struct {
-  x,y int
-}
-
-type Direction int;
-
-const (
-  Left Direction = iota
-  Right 
-  Up
-  Down
+import (
+	"fmt"
 )
 
 type View struct {
@@ -22,13 +13,14 @@ type View struct {
 }
 
 type World struct {
+  name string
   cache map[Coordinate]View
 }
 
-func ReadView(c Coordinate) View {
-  // read xml of c
-  // make the view 
-  return View{}
+func (w *World) ReadView(c Coordinate) View {
+  targetFile := fmt.Sprintf("./Worlds/%s/%d_%d.xml", w.name, c.x, c.y)
+  view,_ := ReadFile(targetFile)
+  return view
 }
 
 func (w *World) GetView(c Coordinate) View {
@@ -38,5 +30,5 @@ func (w *World) GetView(c Coordinate) View {
     return read
   }
 
-  return ReadView(c)
+  return w.ReadView(c)
 }
