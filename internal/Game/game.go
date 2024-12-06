@@ -1,19 +1,21 @@
 package Game
 
-import "fmt"
-
 type Game struct {
   currentWorld World
   currentView View
 }
 
-func StartGame() {
-  fmt.Println("starting game...")
-  gameInstance := &Game{
-    currentWorld: World{name: "World1"},
+func NewGame(worldName string) *Game {
+  world := World{name: worldName}
+  return &Game{
+    currentWorld: world,
+    currentView: world.GetView(Coordinate{0,0}),
   }
-  gameInstance.currentView = gameInstance.currentWorld.GetView(Coordinate{0,0})
-  gameInstance.loop()
+}
+
+func StartGame() {
+  game := NewGame("World1");
+  game.loop()
 }
 
 func (g *Game) loop() {
