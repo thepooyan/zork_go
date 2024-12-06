@@ -1,6 +1,10 @@
 package Game
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
 
 func Outputln(write string) {
   fmt.Println(write);
@@ -11,9 +15,9 @@ func Output(write string) {
 }
 
 func Input() string {
-  var response string
-  fmt.Scan(&response)
-  return response
+  reader := bufio.NewReader(os.Stdin)
+	res, _ := reader.ReadString('\n')
+  return res
 }
 
 func GetUserInput(prompt string) string {
