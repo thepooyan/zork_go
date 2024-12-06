@@ -1,5 +1,11 @@
 package Game
 
+import "strings"
+
+
 func analyzeResponse(response string) {
-  println("analysis", response)
+
+  words := strings.Fields(response);
+  
+  println("len", len(words))
 }
