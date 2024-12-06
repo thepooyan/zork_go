@@ -2,22 +2,34 @@ package Game
 
 import "fmt"
 
-func StartGame() {
-  fmt.Println("starting game...")
-  loop()
+type Game struct {
+  currentWorld World
+  currentView View
 }
 
-func loop() {
+func StartGame() {
+  fmt.Println("starting game...")
+  gameInstance := Game{
+    currentWorld: World{},
+  }
+  gameInstance.currentView = gameInstance.currentWorld.GetView(Coordinate{0,0})
+  gameInstance.loop()
+}
+
+func (g *Game) loop() {
   for {
-    res := getUserInput("Hi!")
+    res := getUserInput(g.describe())
     analyzeResponse(res);
   }
 }
 
+func (g *Game) describe() string {
+  return g.currentView.storyNote
+}
+
 func getUserInput(prompt string) string {
-  fmt.Println(prompt)
-  fmt.Print(" => ")
-  var response string
-  fmt.Scan(&response)
+  Outputln(prompt)
+  Output(" => ")
+  response := Input()
   return response
 }
