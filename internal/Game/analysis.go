@@ -5,19 +5,34 @@ import (
 )
 
 
-func (g *Game) analyzeResponse(response string) {
+func (g *Game) analyzeResponse(response string) (Action, []string) {
 
   words := strings.Fields(response);
 
-  viableActions := map[string]func() {
-    "hi": g.Hi,
-    "idol": g.Idol,
-  }
+  ActionNames := getActionNames(g);
+  ActionAliases := getActionAliases();
+  print(ActionAliases)
+  
 
-  if action, exists := viableActions[words[0]]; exists {
-    action()
+  if action, exists := ActionNames[words[0]]; exists {
+    return action, words
   } else {
-    Outputln("What?")
+    return g.Unknown, words
   }
 }
 
+func getActionAliases() map[string]string {
+  return map[string]string{
+    "hello": "hi",
+    "hey": "hi",
+    "nothing": "idol",
+    "stand": "idol",
+  }
+}
+
+func getActionNames(g *Game) map[string]Action {
+  return map[string]Action{
+    "hi": g.Hi,
+    "idol": g.Idol,
+  }
+}

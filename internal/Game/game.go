@@ -21,7 +21,8 @@ func StartGame() {
 func (g *Game) loop() {
   for {
     res := GetUserInput(g.describe())
-    g.analyzeResponse(res);
+    action, args := g.analyzeResponse(res);
+    action(args)
   }
 }
 
