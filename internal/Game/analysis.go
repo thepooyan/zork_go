@@ -1,20 +1,24 @@
 package Game
 
 import (
-	"reflect"
 	"strings"
 )
 
 
-func analyzeResponse(response string) {
+func (g *Game) analyzeResponse(response string) {
 
   words := strings.Fields(response);
-  
-  println(isViableAction(words[0]))
+  print(words)
+
+  viableActions := map[string]func() {
+    "hi": g.Hi,
+    "idol": g.Idol,
+  }
+
+  if action, exists := viableActions[words[0]]; exists {
+    action()
+  } else {
+    Output("What?")
+  }
 }
 
-func isViableAction(str string) bool {
-  val := reflect.ValueOf(Action{})
-  method := val.MethodByName(str)
-  return method.IsValid()
-}
