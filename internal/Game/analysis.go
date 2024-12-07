@@ -11,11 +11,11 @@ func (g *Game) analyzeResponse(response string) (Action, []string) {
 
   ActionNames := getActionNames(g);
   ActionAliases := getActionAliases();
-  print(ActionAliases)
-  
 
   if action, exists := ActionNames[words[0]]; exists {
     return action, words
+  } else if name, exists := ActionAliases[words[0]]; exists {
+    return ActionNames[name], words
   } else {
     return g.Unknown, words
   }
