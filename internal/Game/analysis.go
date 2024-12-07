@@ -8,7 +8,6 @@ import (
 func (g *Game) analyzeResponse(response string) {
 
   words := strings.Fields(response);
-  print(words)
 
   viableActions := map[string]func() {
     "hi": g.Hi,
@@ -18,7 +17,7 @@ func (g *Game) analyzeResponse(response string) {
   if action, exists := viableActions[words[0]]; exists {
     action()
   } else {
-    Output("What?")
+    Outputln("What?")
   }
 }
 
