@@ -6,6 +6,7 @@ func getActionNames(g *Game) map[string]Action {
     "hi": g.Hi,
     "idol": g.Idol,
     "move": g.Move,
+    "describe": g.Describe,
   }
 }
 
@@ -30,7 +31,7 @@ func (a *Game) Move(args ...string) {
   }
 }
 
-func (a *Game) Describe() {
+func (a *Game) Describe(args ...string) {
   Outputln(a.currentView.storyNote)
 }
 
