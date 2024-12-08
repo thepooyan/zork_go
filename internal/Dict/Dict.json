@@ -1,0 +1,16 @@
+{
+  "move": [
+    "go", "travel"
+  ],
+  "describe": [
+    "tell", "t"
+  ],
+  "exit": [
+    "e","end", "done", "out"
+  ],
+  "read": ["r"],
+  "pick": ["p"],
+  "open": ["o"],
+  "inventory": ["i"],
+  "hi": ["hello"]
+}
