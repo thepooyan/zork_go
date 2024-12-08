@@ -20,8 +20,7 @@ func Input() string {
   return res
 }
 
-func GetUserInput(prompt string) string {
-  Outputln(prompt)
+func GetUserInput() string {
   Output(" => ")
   response := Input()
   return response

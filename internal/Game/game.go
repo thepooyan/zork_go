@@ -15,17 +15,18 @@ func NewGame(worldName string) *Game {
 
 func StartGame() {
   game := NewGame("World1");
+  game.describe()
   game.loop()
 }
 
 func (g *Game) loop() {
   for {
-    res := GetUserInput(g.describe())
+    res := GetUserInput()
     action, args := g.analyzeResponse(res);
     action(args)
   }
 }
 
-func (g *Game) describe() string {
-  return g.currentView.storyNote
+func (g *Game) describe() {
+  Outputln(g.currentView.storyNote)
 }

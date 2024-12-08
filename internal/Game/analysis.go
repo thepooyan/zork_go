@@ -30,9 +30,3 @@ func getActionAliases() map[string]string {
   }
 }
 
-func getActionNames(g *Game) map[string]Action {
-  return map[string]Action{
-    "hi": g.Hi,
-    "idol": g.Idol,
-  }
-}
