@@ -11,6 +11,9 @@
         </person>
     </people>
     <objects>
+      <letter description="test letter">
+        this is test
+      </letter>
       <box description="old looking box"></box>
         <lockedBox id="12s" description="big black metal box">
           <letter description="there's a red letter">
