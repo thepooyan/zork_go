@@ -3,6 +3,7 @@ package Game
 type Game struct {
   currentWorld World
   currentView View
+  exit bool
 }
 
 func NewGame(worldName string) *Game {
@@ -10,6 +11,7 @@ func NewGame(worldName string) *Game {
   return &Game{
     currentWorld: world,
     currentView: world.GetView(Coordinate{0,0}),
+    exit: false,
   }
 }
 
@@ -20,7 +22,7 @@ func StartGame() {
 }
 
 func (g *Game) loop() {
-  for {
+  for !g.exit {
     res := GetUserInput()
     action, args := g.analyzeResponse(res);
     action(args...)

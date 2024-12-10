@@ -7,6 +7,7 @@ func getActionNames(g *Game) map[string]Action {
     "idol": g.Idol,
     "move": g.Move,
     "describe": g.Describe,
+    "exit": g.Exit,
   }
 }
 
@@ -33,6 +34,11 @@ func (a *Game) Move(args ...string) {
 
 func (a *Game) Describe(args ...string) {
   Outputln(a.currentView.storyNote)
+}
+
+func (a *Game) Exit(args ...string) {
+ Outputln("Sending the exit signal...") 
+ a.exit = true;
 }
 
 func notEnoughArgs(required int, args ...string) bool {
