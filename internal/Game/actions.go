@@ -33,7 +33,7 @@ func (a *Game) Move(args ...string) {
 }
 
 func (a *Game) Describe(args ...string) {
-  Outputln(a.currentView.storyNote)
+  Outputln(a.currentView.StoryNote)
 }
 
 func (a *Game) Exit(args ...string) {

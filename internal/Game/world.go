@@ -4,14 +4,6 @@ import (
 	"fmt"
 )
 
-type View struct {
-  storyNote string
-  coordinates Coordinate
-  neighbors []Direction
-  objects []Object
-  hiddenNote map[string]string
-}
-
 type World struct {
   name string
   cache map[Coordinate]View
