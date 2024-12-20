@@ -1,6 +1,9 @@
 package Game
 
-import "strings"
+import (
+	"slices"
+	"strings"
+)
 
 func getActionNames(g *Game) map[string]Action {
   return map[string]Action{
@@ -55,17 +58,25 @@ func (a *Game) Move(args ...string) {
     Outputln("Move where? :/")
     return
   }
+  var dir Direction
   switch args[1] {
     case "up", "north", "n", "u", "forward":
-      Outputln("going up")
+      dir = Up;
     case "down", "south", "s", "d", "backwards":
-      Outputln("going down")
+      dir = Down;
     case "left", "west", "w", "l":
-      Outputln("going left")
+      dir = Left;
     case "right", "east", "r", "e":
-      Outputln("going right")
+      dir = Right;
     default:
       Outputln("you can't go \"", args[1], "\"")
+      return
+  }
+  if slices.Contains(a.currentView.Neighbors, dir) {
+    Outputln("going ", args[1], "...")
+    a.ChangeLocation(dir)
+  } else {
+    Outputln("No path there...")
   }
 }
 

@@ -6,20 +6,16 @@ type World struct {
   WorldReader
 }
 
-func (w *World) readView(c Coordinate) View {
+func (w *World) readView(c Coordinate) (View, error) {
   view,err := w.ReadFile(c)
-
-  if err != nil {
-    panic("error getting the view")
-  }
-  return view
+  return view, err
 }
 
-func (w *World) GetView(c Coordinate) View {
+func (w *World) GetView(c Coordinate) (View, error) {
   read, ok := w.cache[c]
 
   if ok {
-    return read
+    return read, nil
   }
 
   return w.readView(c)
