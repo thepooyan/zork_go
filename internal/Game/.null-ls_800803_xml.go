@@ -29,6 +29,7 @@ func (w *WorldReader) ReadFile(c Coordinate) (View, error) {
 	People := make([]Person, 0)
 
 	if PeopleNode != nil {
+
 		for _, p := range PeopleNode.SelectElements("person") {
 			guy := Person{
 				p.SelectAttrValue("name", ""),
@@ -42,38 +43,35 @@ func (w *WorldReader) ReadFile(c Coordinate) (View, error) {
 	ObjectsNode := root.SelectElement("objects")
 	Objects := make([]interface{}, 0)
 
-	if ObjectsNode != nil {
-		for _, o := range ObjectsNode.ChildElements() {
-			switch o.Tag {
-			case "letter":
-				l := NewLetter(o.Text(), o.SelectAttrValue("description", ""))
-				Objects = append(Objects, l)
-			case "box":
-				b := NewBox(o.SelectAttrValue("description", ""))
-				Objects = append(Objects, b)
-			case "lockedBox":
-				b := NewLockedBox(o.SelectAttrValue("description", ""), o.SelectAttrValue("id", ""))
-				Objects = append(Objects, b)
-			case "key":
-				b := NewKey(o.SelectAttrValue("description", ""), o.SelectAttrValue("id", ""))
-				Objects = append(Objects, b)
-			default:
-				println("unknown object while parsing", w.GetFileName(c), ". ", o.Tag)
-			}
+	for _, o := range ObjectsNode.ChildElements() {
+		switch o.Tag {
+		case "letter":
+			l := NewLetter(o.Text(), o.SelectAttrValue("description", ""))
+			Objects = append(Objects, l)
+		case "box":
+			b := NewBox(o.SelectAttrValue("description", ""))
+			Objects = append(Objects, b)
+		case "lockedBox":
+			b := NewLockedBox(o.SelectAttrValue("description", ""), o.SelectAttrValue("id", ""))
+			Objects = append(Objects, b)
+		case "key":
+			b := NewKey(o.SelectAttrValue("description", ""), o.SelectAttrValue("id", ""))
+			Objects = append(Objects, b)
+		default:
+			println("unknown object while parsing", w.GetFileName(c), ". ", o.Tag)
 		}
 	}
 
-	notesNode := root.SelectElement("hidden_notes")
+	notesNode := root.SelectElement("hidden_notes").SelectElements("note")
 	Notes := make([]Note, 0)
 
-	if notesNode != nil {
-		for _, n := range notesNode.SelectElements("note") {
-			newNote := Note{
-				Keyword: n.SelectAttrValue("keyword", ""),
-				Content: n.Text(),
-			}
-			Notes = append(Notes, newNote)
+	for _, n := range notesNode {
+
+		newNote := Note{
+			Keyword: n.SelectAttrValue("keyword", ""),
+			Content: n.Text(),
 		}
+		Notes = append(Notes, newNote)
 	}
 
 	Neighbors := make([]Direction, 0)
