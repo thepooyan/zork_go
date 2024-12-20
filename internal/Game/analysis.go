@@ -11,6 +11,8 @@ func (g *Game) analyzeResponse(response string) (Action, []string) {
   response = strings.ToLower(response)
 	words := strings.Fields(response)
 
+  if len(words) == 0 { return g.Idol, words }
+
 	ActionNames := getActionNames(g)
 	ActionAliases := getActionAliases()
 
