@@ -1,6 +1,6 @@
 {
-  "u": "move u",
-  "d": "move d",
-  "l": "move l",
-  "r": "move r"
+  "u": "move up",
+  "d": "move down",
+  "l": "move left",
+  "r": "move right"
 }

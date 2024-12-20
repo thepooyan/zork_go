@@ -10,6 +10,7 @@ func (g *Game) analyzeResponse(response string) (Action, []string) {
 
   shortcuts := getShortcuts()
   response = strings.ToLower(response)
+  response = strings.TrimSpace(response)
   
   if value, exists := shortcuts[response]; exists {
     response = value
