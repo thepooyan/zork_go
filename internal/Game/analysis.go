@@ -8,7 +8,13 @@ import (
 
 func (g *Game) analyzeResponse(response string) (Action, []string) {
 
+  shortcuts := getShortcuts()
   response = strings.ToLower(response)
+  
+  if value, exists := shortcuts[response]; exists {
+    response = value
+  }
+  
 	words := strings.Fields(response)
 
   if len(words) == 0 { return g.Idol, words }
@@ -23,6 +29,20 @@ func (g *Game) analyzeResponse(response string) (Action, []string) {
 	} else {
 		return g.Unknown, words
 	}
+}
+
+func getShortcuts() map[string]string {
+  file, err := os.Open("./internal/Dict/shortcuts.json")
+  if err != nil {
+    panic(err)
+  }
+  defer file.Close()
+  var shortcuts map[string]string
+  decoder := json.NewDecoder(file)
+  if err := decoder.Decode(&shortcuts); err != nil {
+    panic(err)
+  }
+  return shortcuts
 }
 
 func getActionAliases() map[string]string {
