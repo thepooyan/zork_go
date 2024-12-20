@@ -55,6 +55,18 @@ func (a *Game) Move(args ...string) {
     Outputln("Move where? :/")
     return
   }
+  switch args[1] {
+    case "up":
+      Outputln("going up")
+    case "down":
+      Outputln("going down")
+    case "left":
+      Outputln("going left")
+    case "right":
+      Outputln("going right")
+    default:
+      Outputln("you can't go \"", args[1], "\"")
+  }
 }
 
 func (a *Game) Describe(args ...string) {

@@ -4,10 +4,12 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
 )
 
-func Outputln(write string) {
-  fmt.Println(write);
+func Outputln(write ...string) {
+  join := strings.Join(write, "")
+  fmt.Println(join)
 }
 
 func Output(write string) {
