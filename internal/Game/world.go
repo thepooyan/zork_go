@@ -11,7 +11,10 @@ type World struct {
 
 func (w *World) ReadView(c Coordinate) View {
   targetFile := fmt.Sprintf("./Worlds/%s/%d_%d.xml", w.name, c.x, c.y)
-  view,_ := ReadFile(targetFile)
+  view,err := ReadFile(targetFile)
+  if err != nil {
+    panic("error getting the view")
+  }
   return view
 }
 

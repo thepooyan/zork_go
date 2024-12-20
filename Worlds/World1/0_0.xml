@@ -15,14 +15,14 @@
         this is test
       </letter>
       <box description="old looking box"></box>
-        <lockedBox id="12s" description="big black metal box">
-          <letter description="there's a red letter">
-                by the time you read this,
-                I shall be gone.
-                and so will you!
-            </letter>
-        </lockedBox>
-        <key id="12s" description="old wired looking key"/>
+      <lockedBox id="12s" description="big black metal box">
+        <letter description="there's a red letter">
+              by the time you read this,
+              I shall be gone.
+              and so will you!
+          </letter>
+      </lockedBox>
+      <key id="12s" description="old wired looking key"/>
     </objects>
     <hidden_notes>
         <note keyword="table">
