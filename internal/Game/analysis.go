@@ -8,6 +8,7 @@ import (
 
 func (g *Game) analyzeResponse(response string) (Action, []string) {
 
+  response = strings.ToLower(response)
 	words := strings.Fields(response)
 
 	ActionNames := getActionNames(g)

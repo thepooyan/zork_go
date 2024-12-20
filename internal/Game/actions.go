@@ -1,5 +1,7 @@
 package Game
 
+import "strings"
+
 func getActionNames(g *Game) map[string]Action {
   return map[string]Action{
     "unknown": g.Unknown,
@@ -8,11 +10,34 @@ func getActionNames(g *Game) map[string]Action {
     "move": g.Move,
     "describe": g.Describe,
     "exit": g.Exit,
+    "test": g.Test,
+    "search": g.Search,
   }
 }
 
 type Action func(args ...string)
 
+func (a *Game) Test(args ...string) {
+  for _,i := range a.currentView.HiddenNotes {
+    println(i.Content)
+  }
+}
+
+func (a *Game) Search(args ...string) {
+  wholeSentence := strings.Join(args, " ")
+  
+  found := false
+  for _,i := range a.currentView.HiddenNotes {
+    if strings.Contains(wholeSentence, i.Keyword) {
+      Outputln(i.Content)
+      found = true
+    }
+  }
+  if !found {
+    Outputln("Nothing found...")
+  }
+}
+ 
 func (a *Game) Hi(args ...string) {
  Outputln("Hello!")
 }
