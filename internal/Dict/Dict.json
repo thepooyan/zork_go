@@ -13,5 +13,6 @@
   "read": ["r"],
   "pick": ["p"],
   "open": ["o"],
-  "inventory": ["i"]
+  "inventory": ["i"],
+  "test": ["dev"]
 }
