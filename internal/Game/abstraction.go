@@ -19,6 +19,7 @@ type View struct {
   People []Person
   Objects []interface{}
   HiddenNotes []Note
+  Neighbors []Direction
 }
 
 type Person struct {

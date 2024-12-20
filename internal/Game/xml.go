@@ -1,12 +1,22 @@
 package Game
 
 import (
+	"fmt"
+
 	"github.com/beevik/etree"
 )
 
-func ReadFile(filename string, c Coordinate) (View, error) {
+type WorldReader struct {
+  WorldName string
+}
+
+func (w *WorldReader) GetFileName(c Coordinate) string {
+  return fmt.Sprintf("./Worlds/%s/%d_%d.xml", w.WorldName, c.x, c.y)
+}
+
+func (w *WorldReader) ReadFile(c Coordinate) (View, error) {
   doc := etree.NewDocument()
-  err := doc.ReadFromFile(filename)
+  err := doc.ReadFromFile(w.GetFileName(c))
   if err != nil {
     return View{}, err
   }
@@ -45,7 +55,7 @@ func ReadFile(filename string, c Coordinate) (View, error) {
         b := NewKey(o.SelectAttrValue("description", ""), o.SelectAttrValue("id", ""))
         Objects = append(Objects, b)
       default:
-        println("unknown object while parsing", filename,". ", o.Tag)
+        println("unknown object while parsing", w.GetFileName(c),". ", o.Tag)
     }
   }
 
@@ -68,5 +78,6 @@ func ReadFile(filename string, c Coordinate) (View, error) {
     People,
     Objects,
     Notes,
+    make([]Direction, 0),
   }, nil
 }

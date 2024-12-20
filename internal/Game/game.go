@@ -7,7 +7,7 @@ type Game struct {
 }
 
 func NewGame(worldName string) *Game {
-  world := World{name: worldName}
+  world := World{name: worldName, WorldReader: WorldReader{worldName}}
   return &Game{
     currentWorld: world,
     currentView: world.GetView(Coordinate{0,0}),
