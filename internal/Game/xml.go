@@ -49,11 +49,23 @@ func ReadFile(filename string) (View, error) {
     }
   }
 
+  notesNode := root.SelectElement("hidden_notes").SelectElements("note")
+  Notes := make([]Note, 0)
+
+  for _,n := range notesNode {
+
+    newNote := Note{
+      Keyword: n.SelectAttrValue("keyword",""),
+      Content: n.Text(),
+    }
+    Notes = append(Notes, newNote)
+  }
+
 
   return View{
     StoryNote,
     People,
     Objects,
-    make([]Note, 0),
+    Notes,
   }, nil
 }
