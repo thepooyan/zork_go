@@ -56,13 +56,13 @@ func (a *Game) Move(args ...string) {
     return
   }
   switch args[1] {
-    case "up":
+    case "up", "north", "n", "u", "forward":
       Outputln("going up")
-    case "down":
+    case "down", "south", "s", "d", "backwards":
       Outputln("going down")
-    case "left":
+    case "left", "west", "w", "l":
       Outputln("going left")
-    case "right":
+    case "right", "east", "r", "e":
       Outputln("going right")
     default:
       Outputln("you can't go \"", args[1], "\"")
