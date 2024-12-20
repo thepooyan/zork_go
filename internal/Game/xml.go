@@ -4,7 +4,7 @@ import (
 	"github.com/beevik/etree"
 )
 
-func ReadFile(filename string) (View, error) {
+func ReadFile(filename string, c Coordinate) (View, error) {
   doc := etree.NewDocument()
   err := doc.ReadFromFile(filename)
   if err != nil {
@@ -63,6 +63,7 @@ func ReadFile(filename string) (View, error) {
 
 
   return View{
+    c,
     StoryNote,
     People,
     Objects,

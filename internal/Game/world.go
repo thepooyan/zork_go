@@ -9,9 +9,10 @@ type World struct {
   cache map[Coordinate]View
 }
 
-func (w *World) ReadView(c Coordinate) View {
+func (w *World) readView(c Coordinate) View {
   targetFile := fmt.Sprintf("./Worlds/%s/%d_%d.xml", w.name, c.x, c.y)
-  view,err := ReadFile(targetFile)
+  view,err := ReadFile(targetFile, c)
+
   if err != nil {
     panic("error getting the view")
   }
@@ -25,5 +26,5 @@ func (w *World) GetView(c Coordinate) View {
     return read
   }
 
-  return w.ReadView(c)
+  return w.readView(c)
 }
