@@ -15,10 +15,25 @@ func getActionNames(g *Game) map[string]Action {
     "exit": g.Exit,
     "test": g.Test,
     "search": g.Search,
+    "open": g.Open,
   }
 }
 
 type Action func(args ...string)
+
+func (a *Game) Open(args ...string) {
+  if notEnoughArgs(2, args...) {
+    Outputln("Open what?")
+  }
+  target := args[1]
+
+  switch target {
+    case "box":
+      Outputln("searching for the box...")
+    default:
+      Outputln("what is ", target, "?")
+  }
+}
 
 func (a *Game) Test(args ...string) {
   for _,i := range a.currentView.HiddenNotes {
