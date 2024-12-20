@@ -71,6 +71,22 @@ func (w *WorldReader) ReadFile(c Coordinate) (View, error) {
     Notes = append(Notes, newNote)
   }
 
+  Neighbors := make([]Direction, 0)
+
+  if fileExists(w.GetFileName(Coordinate{c.x+1, c.y})) {
+    Neighbors = append(Neighbors, Right)
+  }
+  if fileExists(w.GetFileName(Coordinate{c.x-1, c.y})) {
+    Neighbors = append(Neighbors, Left)
+  }
+  if fileExists(w.GetFileName(Coordinate{c.x, c.y+1})) {
+    Neighbors = append(Neighbors, Up)
+  }
+  if fileExists(w.GetFileName(Coordinate{c.x, c.y-1})) {
+    Neighbors = append(Neighbors, Down)
+  }
+
+
 
   return View{
     c,
@@ -78,6 +94,6 @@ func (w *WorldReader) ReadFile(c Coordinate) (View, error) {
     People,
     Objects,
     Notes,
-    make([]Direction, 0),
+    Neighbors,
   }, nil
 }
