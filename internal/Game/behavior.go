@@ -40,6 +40,10 @@ type Readable struct {
 	message string
 }
 
+type ReadableInt interface {
+  Read()
+}
+
 func (r *Readable) Read() {
 	println("Reading the", r.description, "=>", r.message)
 }

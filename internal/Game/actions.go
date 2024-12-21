@@ -16,37 +16,20 @@ func getActionNames(g *Game) map[string]Action {
     "test": g.Test,
     "search": g.Search,
     "open": g.Open,
+    "read": g.Read,
   }
 }
 
 type Action func(args ...string)
 
+func (a *Game) Read(args ...string) {
+  action := a.NewSingleAction("read", "Read", (*ReadableInt)(nil), args...)
+  action()
+}
+
 func (a *Game) Open(args ...string) {
-  if notEnoughArgs(2, args...) {
-    Respond("Open what?")
-    return
-  }
-
-  target := strings.Join(args[1:], " ")
-  o := a.findObjsInGame(target)
-
-  switch len(o) {
-  case 1:
-    obj, ok := o[0].(ContainerInt)
-    if !ok {
-      Respond("can't open the ", o[0].getDescription())
-      return
-    }
-    obj.Open(a)
-  case 0:
-    Respond("can't find any \"", target, "\"s")
-  default:
-    str := make([]string, 0)
-    for _,i := range o {
-      str = append(str, i.getDescription())
-    }
-    Respond(strings.Join(str, " or "), "?")
-  }
+  action := a.NewSingleAction("open", "Open", (*ContainerInt)(nil), args...)
+  action(a)
 }
 
 func (a *Game) Test(args ...string) {
