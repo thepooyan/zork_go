@@ -37,7 +37,7 @@ func NewBox(description string) Box {
     },
     &Container{
       &Object,
-      make([]interface{}, 0),
+      make([]ObjectInt, 0),
     },
   }
 }
@@ -55,7 +55,7 @@ func NewLockedBox(description, id string) LockedBox {
     obj,
     &Container{
       obj,
-      make([]interface{}, 0),
+      make([]ObjectInt, 0),
     },
     &Pickable{
       obj,

@@ -1,11 +1,11 @@
 package Game
 
-type ObjectInt interface {
-  getDescription() string
-}
-
 type Object struct {
 	description string
+}
+
+type ObjectInt interface {
+  getDescription() string
 }
 
 func (o *Object) getDescription() string {
@@ -14,14 +14,14 @@ func (o *Object) getDescription() string {
 
 // _____________________
 
-type PickableInt interface  {
-  getWeight() int
-  Pickup(g *Game)
-}
-
 type Pickable struct {
 	*Object
 	weight int
+}
+
+type PickableInt interface  {
+  getWeight() int
+  Pickup(g *Game)
 }
 
 func (p *Pickable) Pickup(g *Game) {
@@ -47,16 +47,21 @@ func (r *Readable) Read() {
 
 type Container struct {
 	*Object
-	content []interface{}
+	content []ObjectInt
 }
 
-func (c *Container) Open() []interface{} {
+type ContainerInt interface {
+  Open() []ObjectInt
+  Add(item ObjectInt)
+}
+
+func (c *Container) Open() []ObjectInt {
 	println("Opening the ", c.description, "...")
 
 	return c.content
 }
 
-func (c *Container) Add(item interface{}) {
+func (c *Container) Add(item ObjectInt) {
 	c.content = append(c.content, item)
 }
 

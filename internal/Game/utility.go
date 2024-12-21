@@ -72,3 +72,9 @@ func (i *Inventory) Add(item PickableInt) bool {
 
   return true
 }
+
+func ListStuff(stuff []ObjectInt) {
+  for _,i := range stuff {
+    Outputln(i.getDescription())
+  }
+}

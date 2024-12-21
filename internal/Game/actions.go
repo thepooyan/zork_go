@@ -32,7 +32,14 @@ func (a *Game) Open(args ...string) {
 
   switch len(o) {
   case 1:
+    obj, ok := o[0].(ContainerInt)
+    if !ok {
+      Outputln("can't open the ", target)
+      return
+    }
     Outputln("opening the ", o[0].getDescription(),"...")
+    stuff := obj.Open()
+    ListStuff(stuff)
   case 0:
     Outputln("can't find any \"", target, "\"s")
   default:
