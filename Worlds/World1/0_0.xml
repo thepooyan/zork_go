@@ -11,22 +11,22 @@
         </person>
     </people>
     <objects>
-      <letter description="test letter">
+      <letter description="a test letter">
         this is test
       </letter>
-      <box description="old looking box">
+      <box description="an old looking box">
         <letter description="inner letter">
           inner letter content
         </letter>
       </box>
-      <lockedBox id="12s" description="big black metal box">
-        <letter description="there's a red letter">
+      <lockedBox id="12s" description="a big black metal box">
+        <letter description="a red letter">
               by the time you read this,
               I shall be gone.
               and so will you!
           </letter>
       </lockedBox>
-      <key id="12s" description="old wired looking key"/>
+      <key id="12s" description="an old wired looking key"/>
     </objects>
     <hidden_notes>
         <note keyword="table">

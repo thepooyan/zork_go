@@ -2,8 +2,10 @@ package Game
 
 import (
 	"bufio"
+	"encoding/json"
 	"errors"
 	"fmt"
+	"math/rand"
 	"os"
 	"strings"
 )
@@ -77,4 +79,24 @@ func ListStuff(stuff []ObjectInt) {
   for _,i := range stuff {
     Outputln(i.getDescription())
   }
+}
+
+func AddRandomSmalltalk(description string) string {
+  sm := getSmalltalks()
+  rand := rand.Intn(len(sm));
+  return sm[rand] + " " + description
+}
+
+func getSmalltalks() []string {
+  file, err := os.Open("./internal/Dict/small-talk.json")
+  if err != nil {
+    panic(err)
+  }
+  defer file.Close()
+  var st []string
+  decoder := json.NewDecoder(file)
+  if err := decoder.Decode(&st); err != nil {
+    panic(err)
+  }
+  return st
 }

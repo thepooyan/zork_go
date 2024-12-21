@@ -113,6 +113,10 @@ func (a *Game) Move(args ...string) {
 
 func (a *Game) Describe(args ...string) {
   Outputln(a.currentView.StoryNote)
+
+  for _,o := range a.currentView.Objects {
+    Outputln(AddRandomSmalltalk(o.getDescription()))
+  }
 }
 
 func (a *Game) Exit(args ...string) {
