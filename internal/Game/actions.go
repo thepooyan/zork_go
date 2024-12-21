@@ -24,14 +24,23 @@ type Action func(args ...string)
 func (a *Game) Open(args ...string) {
   if notEnoughArgs(2, args...) {
     Outputln("Open what?")
+    return
   }
-  target := args[1]
 
-  switch target {
-    case "box":
-      Outputln("searching for the box...")
-    default:
-      Outputln("what is ", target, "?")
+  target := args[1]
+  o := a.findObjsInGame(target)
+
+  switch len(o) {
+  case 1:
+    Outputln("opening the ", o[0].getDescription(),"...")
+  case 0:
+    Outputln("can't find any \"", target, "\"s")
+  default:
+    str := make([]string, 0)
+    for _,i := range o {
+      str = append(str, i.getDescription())
+    }
+    Outputln(strings.Join(str, " or "), "?")
   }
 }
 

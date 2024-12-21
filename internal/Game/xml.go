@@ -40,7 +40,7 @@ func (w *WorldReader) ReadFile(c Coordinate) (View, error) {
 	}
 
 	ObjectsNode := root.SelectElement("objects")
-	Objects := make([]interface{}, 0)
+	Objects := make([]ObjectInt, 0)
 
 	if ObjectsNode != nil {
 		for _, o := range ObjectsNode.ChildElements() {

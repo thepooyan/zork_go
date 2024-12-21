@@ -1,5 +1,7 @@
 package Game
 
+import "strings"
+
 type Game struct {
   currentWorld World
   currentView View
@@ -51,4 +53,17 @@ func (g *Game) DirectionToCoordinate(d Direction) Coordinate {
     return Coordinate{g.currentView.Coordinates.x+1, g.currentView.Coordinates.y}
   }
   return Coordinate{0,0}
+}
+
+
+func (g *Game) findObjsInGame(objectName string) []ObjectInt {
+  result := make([]ObjectInt, 0)
+
+  for _,o := range g.currentView.Objects {
+    if strings.Contains(o.getDescription(), objectName) {
+      result = append(result, o)
+    }
+  }
+
+  return result
 }

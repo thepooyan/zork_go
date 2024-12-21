@@ -17,7 +17,7 @@ type View struct {
   Coordinates Coordinate
   StoryNote string
   People []Person
-  Objects []interface{}
+  Objects []ObjectInt
   HiddenNotes []Note
   Neighbors []Direction
 }

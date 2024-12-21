@@ -1,9 +1,5 @@
 package Game
 
-type Object struct {
-	description string
-}
-
 type Letter struct {
   *Object
   *Readable

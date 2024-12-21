@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	"testing"
 )
 
 func Outputln(write ...string) {

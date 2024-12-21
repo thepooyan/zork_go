@@ -1,5 +1,19 @@
 package Game
 
+type ObjectInt interface {
+  getDescription() string
+}
+
+type Object struct {
+	description string
+}
+
+func (o *Object) getDescription() string {
+  return o.description
+}
+
+// _____________________
+
 type PickableInt interface  {
   getWeight() int
   Pickup(g *Game)
