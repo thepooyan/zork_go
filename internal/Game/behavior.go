@@ -20,6 +20,7 @@ type Pickable struct {
 }
 
 type PickableInt interface  {
+  ObjectInt
   getWeight() int
   Pickup(g *Game)
 }
@@ -51,6 +52,7 @@ type Container struct {
 }
 
 type ContainerInt interface {
+  ObjectInt
   Open() []ObjectInt
   Add(item ObjectInt)
 }
