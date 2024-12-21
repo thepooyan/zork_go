@@ -23,7 +23,7 @@ type Action func(args ...string)
 
 func (a *Game) Open(args ...string) {
   if notEnoughArgs(2, args...) {
-    Outputln("Open what?")
+    Respond("Open what?")
     return
   }
 
@@ -34,20 +34,20 @@ func (a *Game) Open(args ...string) {
   case 1:
     obj, ok := o[0].(ContainerInt)
     if !ok {
-      Outputln("can't open the ", o[0].getDescription())
+      Respond("can't open the ", o[0].getDescription())
       return
     }
-    Outputln("opening the ", o[0].getDescription(),"...")
+    Respond("opening the ", o[0].getDescription(),"...")
     stuff := obj.Open()
     ListStuff(stuff)
   case 0:
-    Outputln("can't find any \"", target, "\"s")
+    Respond("can't find any \"", target, "\"s")
   default:
     str := make([]string, 0)
     for _,i := range o {
       str = append(str, i.getDescription())
     }
-    Outputln(strings.Join(str, " or "), "?")
+    Respond(strings.Join(str, " or "), "?")
   }
 }
 
@@ -63,30 +63,30 @@ func (a *Game) Search(args ...string) {
   found := false
   for _,i := range a.currentView.HiddenNotes {
     if strings.Contains(wholeSentence, i.Keyword) {
-      Outputln(i.Content)
+      Respond(i.Content)
       found = true
     }
   }
   if !found {
-    Outputln("Nothing found...")
+    Respond("Nothing found...")
   }
 }
  
 func (a *Game) Hi(args ...string) {
- Outputln("Hello!")
+ Respond("Hello!")
 }
 
 func (a *Game) Idol(args ...string) {
-  Outputln("Doing nothing!...")
+  Respond("Doing nothing!...")
 }
 
 func (a *Game) Unknown(args ...string) {
-  Outputln("i dunno what \"" + args[0] + "\" is :/")
+  Respond("i dunno what \"" + args[0] + "\" is :/")
 }
 
 func (a *Game) Move(args ...string) {
   if notEnoughArgs(2, args...) {
-    Outputln("Move where? :/")
+    Respond("Move where? :/")
     return
   }
   var dir Direction
@@ -100,30 +100,30 @@ func (a *Game) Move(args ...string) {
     case "right", "east", "r", "e":
       dir = Right;
     default:
-      Outputln("you can't go \"", args[1], "\"")
+      Respond("you can't go \"", args[1], "\"")
       return
   }
   if slices.Contains(a.currentView.Neighbors, dir) {
-    Outputln("going ", args[1], "...")
+    Respond("going ", args[1], "...")
     a.ChangeLocation(dir)
   } else {
-    Outputln("No path there...")
+    Respond("No path there...")
   }
 }
 
 func (a *Game) Describe(args ...string) {
-  Outputln(a.prefix + a.currentView.StoryNote)
+  Describe(a.prefix + a.currentView.StoryNote)
 
   for _,o := range a.currentView.Objects {
-    Outputln(a.prefix + AddRandomSmalltalk(o.getDescription()))
+    Describe(a.prefix + AddRandomSmalltalk(o.getDescription()))
   }
   for _,o := range a.currentView.People {
-    Outputln(a.prefix + AddRandomSmalltalk(o.Description))
+    Describe(a.prefix + AddRandomSmalltalk(o.Description))
   }
 }
 
 func (a *Game) Exit(args ...string) {
- Outputln("Sending the exit signal...") 
+ Respond("Sending the exit signal...") 
  a.exit = true;
 }
 

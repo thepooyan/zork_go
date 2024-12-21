@@ -18,7 +18,6 @@ func NewGame(worldName string) *Game {
     currentView: view,
     exit: false,
     Inventory: Inventory{},
-    prefix: "   ",
   }
 }
 
