@@ -53,14 +53,13 @@ type Container struct {
 
 type ContainerInt interface {
   ObjectInt
-  Open() []ObjectInt
+  Open(g *Game)
   Add(item ObjectInt)
 }
 
-func (c *Container) Open() []ObjectInt {
+func (c *Container) Open(g *Game) {
 	Respond("opening the ", c.description, "...")
-
-	return c.content
+  g.currentView.Objects = append(g.currentView.Objects, c.content...)
 }
 
 func (c *Container) Add(item ObjectInt) {

@@ -37,8 +37,7 @@ func (a *Game) Open(args ...string) {
       Respond("can't open the ", o[0].getDescription())
       return
     }
-    stuff := obj.Open()
-    ListStuff(stuff)
+    obj.Open(a)
   case 0:
     Respond("can't find any \"", target, "\"s")
   default:
