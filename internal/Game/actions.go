@@ -117,6 +117,9 @@ func (a *Game) Describe(args ...string) {
   for _,o := range a.currentView.Objects {
     Outputln(AddRandomSmalltalk(o.getDescription()))
   }
+  for _,o := range a.currentView.People {
+    Outputln(AddRandomSmalltalk(o.Description))
+  }
 }
 
 func (a *Game) Exit(args ...string) {
