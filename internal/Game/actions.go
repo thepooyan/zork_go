@@ -37,7 +37,6 @@ func (a *Game) Open(args ...string) {
       Respond("can't open the ", o[0].getDescription())
       return
     }
-    Respond("opening the ", o[0].getDescription(),"...")
     stuff := obj.Open()
     ListStuff(stuff)
   case 0:

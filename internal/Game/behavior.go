@@ -56,7 +56,7 @@ type ContainerInt interface {
 }
 
 func (c *Container) Open() []ObjectInt {
-	println("Opening the ", c.description, "...")
+	Respond("opening the ", c.description, "...")
 
 	return c.content
 }
