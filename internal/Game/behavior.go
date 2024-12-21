@@ -1,12 +1,21 @@
 package Game
 
+type PickableInt interface  {
+  getWeight() int
+  Pickup(g *Game)
+}
+
 type Pickable struct {
 	*Object
 	weight int
 }
 
-func (p *Pickable) Pickup() {
+func (p *Pickable) Pickup(g *Game) {
 	println("picked up ", p.weight, " grams of ", p.description)
+}
+
+func (p *Pickable) getWeight() int {
+  return p.weight
 }
 
 //__________________

@@ -4,6 +4,7 @@ type Game struct {
   currentWorld World
   currentView View
   exit bool
+  Inventory
 }
 
 func NewGame(worldName string) *Game {
@@ -13,6 +14,7 @@ func NewGame(worldName string) *Game {
     currentWorld: world,
     currentView: view,
     exit: false,
+    Inventory: Inventory{},
   }
 }
 
