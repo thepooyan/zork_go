@@ -91,9 +91,17 @@ func parseChildNodes(e *etree.Element) []ObjectInt {
 				Objects = append(Objects, l)
 			case "box":
 				b := NewBox(o.SelectAttrValue("description", ""))
+        innerStuff := parseChildNodes(o)
+        for _,i := range innerStuff {
+          b.Add(i)
+        }
 				Objects = append(Objects, b)
 			case "lockedBox":
 				b := NewLockedBox(o.SelectAttrValue("description", ""), o.SelectAttrValue("id", ""))
+        innerStuff := parseChildNodes(o)
+        for _,i := range innerStuff {
+          b.Add(i)
+        }
 				Objects = append(Objects, b)
 			case "key":
 				b := NewKey(o.SelectAttrValue("description", ""), o.SelectAttrValue("id", ""))

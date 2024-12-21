@@ -14,7 +14,11 @@
       <letter description="test letter">
         this is test
       </letter>
-      <box description="old looking box"></box>
+      <box description="old looking box">
+        <letter description="inner letter">
+          inner letter content
+        </letter>
+      </box>
       <lockedBox id="12s" description="big black metal box">
         <letter description="there's a red letter">
               by the time you read this,
