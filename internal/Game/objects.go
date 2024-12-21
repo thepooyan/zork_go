@@ -72,7 +72,7 @@ func NewLockedBox(description, id string) LockedBox {
 type Key struct {
   *Object
   *Pickable
-  *Unlockable
+  *Unlocker
 }
 
 func NewKey(description,id string) Key {
@@ -83,7 +83,7 @@ func NewKey(description,id string) Key {
       obj,
       2,
     },
-    &Unlockable{
+    &Unlocker{
       obj,
       id,
     },

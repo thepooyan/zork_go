@@ -78,12 +78,12 @@ type Lockable struct {
 	isLocked bool
 }
 
-type Unlockable struct {
+type Unlocker struct {
 	*Object
 	id string
 }
 
-func (l *Lockable) Unlock(k Unlockable) {
+func (l *Lockable) Unlock(k Unlocker) {
 	if l.id == k.id {
 		println("Unlocked the", l.description)
     l.isLocked = false
