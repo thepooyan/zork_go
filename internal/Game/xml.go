@@ -40,28 +40,8 @@ func (w *WorldReader) ReadFile(c Coordinate) (View, error) {
 	}
 
 	ObjectsNode := root.SelectElement("objects")
-	Objects := make([]ObjectInt, 0)
+	Objects := parseChildNodes(ObjectsNode)
 
-	if ObjectsNode != nil {
-		for _, o := range ObjectsNode.ChildElements() {
-			switch o.Tag {
-			case "letter":
-				l := NewLetter(o.Text(), o.SelectAttrValue("description", ""))
-				Objects = append(Objects, l)
-			case "box":
-				b := NewBox(o.SelectAttrValue("description", ""))
-				Objects = append(Objects, b)
-			case "lockedBox":
-				b := NewLockedBox(o.SelectAttrValue("description", ""), o.SelectAttrValue("id", ""))
-				Objects = append(Objects, b)
-			case "key":
-				b := NewKey(o.SelectAttrValue("description", ""), o.SelectAttrValue("id", ""))
-				Objects = append(Objects, b)
-			default:
-				println("unknown object while parsing", w.GetFileName(c), ". ", o.Tag)
-			}
-		}
-	}
 
 	notesNode := root.SelectElement("hidden_notes")
 	Notes := make([]Note, 0)
@@ -99,4 +79,30 @@ func (w *WorldReader) ReadFile(c Coordinate) (View, error) {
 		Notes,
 		Neighbors,
 	}, nil
+}
+
+func parseChildNodes(e *etree.Element)[]ObjectInt {
+	Objects := make([]ObjectInt, 0)
+
+	if e != nil {
+		for _, o := range e.ChildElements() {
+			switch o.Tag {
+			case "letter":
+				l := NewLetter(o.Text(), o.SelectAttrValue("description", ""))
+				Objects = append(Objects, l)
+			case "box":
+				b := NewBox(o.SelectAttrValue("description", ""))
+				Objects = append(Objects, b)
+			case "lockedBox":
+				b := NewLockedBox(o.SelectAttrValue("description", ""), o.SelectAttrValue("id", ""))
+				Objects = append(Objects, b)
+			case "key":
+				b := NewKey(o.SelectAttrValue("description", ""), o.SelectAttrValue("id", ""))
+				Objects = append(Objects, b)
+			default:
+        println("unknown object while parsing: ", o.Tag)
+			}
+		}
+	}
+  return Objects
 }
