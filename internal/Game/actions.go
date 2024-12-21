@@ -112,13 +112,13 @@ func (a *Game) Move(args ...string) {
 }
 
 func (a *Game) Describe(args ...string) {
-  Outputln(a.currentView.StoryNote)
+  Outputln(a.prefix + a.currentView.StoryNote)
 
   for _,o := range a.currentView.Objects {
-    Outputln(AddRandomSmalltalk(o.getDescription()))
+    Outputln(a.prefix + AddRandomSmalltalk(o.getDescription()))
   }
   for _,o := range a.currentView.People {
-    Outputln(AddRandomSmalltalk(o.Description))
+    Outputln(a.prefix + AddRandomSmalltalk(o.Description))
   }
 }
 
