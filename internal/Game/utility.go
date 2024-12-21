@@ -100,3 +100,8 @@ func getSmalltalks() []string {
   }
   return st
 }
+
+func RemoveXmlIndentation(text string) string {
+  fls := strings.Fields(text)
+  return strings.Join(fls, " ")
+}

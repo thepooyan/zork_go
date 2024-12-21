@@ -23,7 +23,7 @@ func (w *WorldReader) ReadFile(c Coordinate) (View, error) {
 
 	root := doc.SelectElement("view")
 
-	StoryNote := root.SelectElement("story_note").Text()
+	StoryNote := RemoveXmlIndentation(root.SelectElement("story_note").Text())
 
 	PeopleNode := root.SelectElement("people")
 	People := make([]Person, 0)
