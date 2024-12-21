@@ -39,6 +39,7 @@ func (g *Game) ChangeLocation(d Direction) {
   if err == nil {
     g.currentView = view
   }
+  g.Describe()
 }
 
 func (g *Game) DirectionToCoordinate(d Direction) Coordinate {
