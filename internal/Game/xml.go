@@ -42,7 +42,6 @@ func (w *WorldReader) ReadFile(c Coordinate) (View, error) {
 	ObjectsNode := root.SelectElement("objects")
 	Objects := parseChildNodes(ObjectsNode)
 
-
 	notesNode := root.SelectElement("hidden_notes")
 	Notes := make([]Note, 0)
 
@@ -81,7 +80,7 @@ func (w *WorldReader) ReadFile(c Coordinate) (View, error) {
 	}, nil
 }
 
-func parseChildNodes(e *etree.Element)[]ObjectInt {
+func parseChildNodes(e *etree.Element) []ObjectInt {
 	Objects := make([]ObjectInt, 0)
 
 	if e != nil {
@@ -100,9 +99,9 @@ func parseChildNodes(e *etree.Element)[]ObjectInt {
 				b := NewKey(o.SelectAttrValue("description", ""), o.SelectAttrValue("id", ""))
 				Objects = append(Objects, b)
 			default:
-        println("unknown object while parsing: ", o.Tag)
+				println("unknown object while parsing: ", o.Tag)
 			}
 		}
 	}
-  return Objects
+	return Objects
 }
