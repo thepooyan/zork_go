@@ -27,14 +27,14 @@ func (a *Game) Open(args ...string) {
     return
   }
 
-  target := args[1]
+  target := strings.Join(args[1:], " ")
   o := a.findObjsInGame(target)
 
   switch len(o) {
   case 1:
     obj, ok := o[0].(ContainerInt)
     if !ok {
-      Outputln("can't open the ", target)
+      Outputln("can't open the ", o[0].getDescription())
       return
     }
     Outputln("opening the ", o[0].getDescription(),"...")
