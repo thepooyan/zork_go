@@ -25,6 +25,7 @@ type Action func(args ...string)
 
 func (a *Game) Unlock(args ...string) {
   action := a.NewSingleAction("unlock", "Unlock", (*LockInt)(nil), args...)
+  // action := a.NewTwoStepAction("unlock", "Unlock", (*LockInt)(nil), args...)
   action(a)
 }
 

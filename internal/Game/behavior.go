@@ -89,6 +89,9 @@ type Unlocker struct {
 }
 
 func (l *Lockable) Unlock(g *Game) {
+  Respond("With what?")
+  GetUserInput()
+
   k := NewKey("fkfk", "12s")
 	if l.id == k.id {
 		println("Unlocked the", l.description)
