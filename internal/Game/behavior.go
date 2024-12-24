@@ -78,12 +78,18 @@ type Lockable struct {
 	isLocked bool
 }
 
+type LockInt interface {
+  ObjectInt
+  Unlock(g *Game)
+}
+
 type Unlocker struct {
 	*Object
 	id string
 }
 
-func (l *Lockable) Unlock(k Unlocker) {
+func (l *Lockable) Unlock(g *Game) {
+  k := NewKey("fkfk", "12s")
 	if l.id == k.id {
 		println("Unlocked the", l.description)
     l.isLocked = false

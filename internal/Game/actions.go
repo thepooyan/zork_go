@@ -17,10 +17,16 @@ func getActionNames(g *Game) map[string]Action {
     "search": g.Search,
     "open": g.Open,
     "read": g.Read,
+    "unlock": g.Unlock,
   }
 }
 
 type Action func(args ...string)
+
+func (a *Game) Unlock(args ...string) {
+  action := a.NewSingleAction("unlock", "Unlock", (*LockInt)(nil), args...)
+  action(a)
+}
 
 func (a *Game) Read(args ...string) {
   action := a.NewSingleAction("read", "Read", (*ReadableInt)(nil), args...)
