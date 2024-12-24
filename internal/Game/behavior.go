@@ -91,3 +91,19 @@ func (l *Lockable) Unlock(k Unlocker) {
     println("the key does not match the lock")
   }
 }
+
+//---------------------------------
+
+type LockedContainer struct {
+  *Object
+  *Lockable
+  *Container
+}
+
+func (l *LockedContainer) Open(g *Game) {
+  if (l.Lockable.isLocked) {
+    Respond("can't open the ", l.getDescription(),". it's Locked")
+  } else {
+    l.Container.Open(g)
+  }
+}

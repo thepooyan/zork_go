@@ -44,27 +44,29 @@ func NewBox(description string) Box {
 
 type LockedBox struct {
   *Object
-  *Container
   *Pickable
-  *Lockable
+  *LockedContainer
 }
 
 func NewLockedBox(description, id string) LockedBox {
   obj := &Object{description}
   return LockedBox{
     obj,
-    &Container{
-      obj,
-      make([]ObjectInt, 0),
-    },
     &Pickable{
       obj,
       10,
     },
-    &Lockable{
+    &LockedContainer{
       obj,
-      id,
-      true,
+      &Lockable{
+        obj,
+        id,
+        true,
+      },
+      &Container{
+        obj,
+        make([]ObjectInt, 0),
+      },
     },
   }
 }
