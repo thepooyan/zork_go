@@ -4,14 +4,25 @@ import "strconv"
 
 type Object struct {
 	description string
+  id string
 }
 
 type ObjectInt interface {
   getDescription() string
+  equals(i ObjectInt) bool
+  getId() string
 }
 
 func (o *Object) getDescription() string {
   return o.description
+}
+
+func (o *Object) getId() string {
+  return o.id
+}
+
+func (o *Object) equals(i ObjectInt) bool {
+  return i.getId() == o.id
 }
 
 // _____________________

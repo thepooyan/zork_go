@@ -88,7 +88,7 @@ func (i *Inventory) Add(item PickableInt) bool {
   if err != nil {
     return false
   }
-
+  i.items = append(i.items, item)
   return true
 }
 
