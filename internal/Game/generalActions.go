@@ -59,35 +59,37 @@ func (a *Game) NewSingleAction(actionName string, iface any, args ...string) fun
 func (a *Game) NewTwoStepAction(actionName string, iface any, subjectFace any, args ...string) func(actionArgs ...any) {
 
 	action := a.NewSingleAction(actionName, iface, args...)
-  if action == nil {
-    return nil
-  }
-	Respond("with what?")
-	obj := GetUserInput()
-	o := a.findObjsInGame(obj)
+	if action == nil {
+		return nil
+	}
+	for {
 
-	switch len(o) {
-	case 1:
-		ifaceType := reflect.TypeOf(subjectFace).Elem()
-		objType := reflect.TypeOf(o[0])
+		Respond("with what?")
+		obj := GetUserInput()
+		o := a.findObjsInGame(obj)
 
-		if !objType.Implements(ifaceType) {
-			Respond("can't use the ", o[0].getDescription(), " to ", actionName)
+		switch len(o) {
+		case 1:
+			ifaceType := reflect.TypeOf(subjectFace).Elem()
+			objType := reflect.TypeOf(o[0])
+
+			if !objType.Implements(ifaceType) {
+				Respond("can't use the ", o[0].getDescription(), " to ", actionName)
+				return nil
+			}
+			return func(actionArgs ...any) {
+				action(o[0])
+			}
+		case 0:
+			Respond("can't find any \"", obj, "\"s")
 			return nil
-		}
-		return func(actionArgs ...any) {
-			action(o[0])
-		}
-	case 0:
-		Respond("can't find any \"", obj, "\"s")
-		return nil
 
-	default:
-		str := make([]string, 0)
-		for _, i := range o {
-			str = append(str, i.getDescription())
+		default:
+			str := make([]string, 0)
+			for _, i := range o {
+				str = append(str, i.getDescription())
+			}
+			Respond(strings.Join(str, " or "), "?")
 		}
-		Respond(strings.Join(str, " or "), "?")
-		return nil
 	}
 }
