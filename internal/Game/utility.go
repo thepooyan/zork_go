@@ -78,7 +78,7 @@ func (c *CarryWeight) Drop(amount int) {
 }
 
 type Inventory struct {
-  items []interface{}
+  items []PickableInt
   CarryWeight
 }
 
@@ -90,6 +90,12 @@ func (i *Inventory) Add(item PickableInt) bool {
   }
 
   return true
+}
+
+func (inv *Inventory) Describe() {
+  for _,i := range inv.items {
+    Respond(i.getDescription())
+  }
 }
 
 func ListStuff(stuff []ObjectInt) {

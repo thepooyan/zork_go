@@ -19,10 +19,15 @@ func getActionNames(g *Game) map[string]Action {
     "read": g.Read,
     "unlock": g.Unlock,
     "pickup": g.Pickup,
+    "inventory": g.GetInventory,
   }
 }
 
 type Action func(args ...string)
+
+func (a *Game) GetInventory(args ...string) {
+  a.Inventory.Describe()
+}
 
 func (a *Game) Pickup(args ...string) {
   action := a.NewSingleAction("pickup", (*PickableInt)(nil), args...)
