@@ -1,13 +1,27 @@
 package Game
 
+import ("github.com/google/uuid")
+
 type Letter struct {
   *Object
   *Readable
   *Pickable
 }
 
+func getUUID() string {
+  n := uuid.New()
+  return n.String()
+}
+
+func NewObject(description string) Object {
+  return Object{
+    description,
+    getUUID(),
+  }
+}
+
 func NewLetter(message, description string) Letter {
-  Object := Object{description}
+  Object := NewObject( description )
   return Letter{
     &Object,
     &Readable{
@@ -28,7 +42,7 @@ type Box struct {
 }
 
 func NewBox(description string) Box {
-  Object := Object{description}
+  Object := NewObject( description )
   return Box{
     &Object,
     &Pickable{
@@ -49,22 +63,23 @@ type LockedBox struct {
 }
 
 func NewLockedBox(description, id string) LockedBox {
-  obj := &Object{description}
+  obj := NewObject(description)
+
   return LockedBox{
-    obj,
+    &obj,
     &Pickable{
-      obj,
+      &obj,
       10,
     },
     &LockedContainer{
-      obj,
+      &obj,
       &Lockable{
-        obj,
+        &obj,
         id,
         true,
       },
       &Container{
-        obj,
+        &obj,
         make([]ObjectInt, 0),
       },
     },
@@ -78,15 +93,15 @@ type Key struct {
 }
 
 func NewKey(description,id string) Key {
-  obj := &Object{description}
+  obj := NewObject(description)
   return Key{
-    obj,
+    &obj,
     &Pickable{
-      obj,
+      &obj,
       2,
     },
     &Unlocker{
-      obj,
+      &obj,
       id,
     },
   }
