@@ -40,6 +40,7 @@ type PickableInt interface  {
 
 func (p *Pickable) Pickup(g *Game) {
   g.Inventory.Add(p)
+  g.RemoveFromScene(p)
 	Respond("picked up ", strconv.Itoa(p.weight) , " grams of ", p.description)
 }
 

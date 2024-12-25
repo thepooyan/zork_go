@@ -135,3 +135,15 @@ func CapitalizeFirstLetter(s string) string {
 	}
 	return strings.ToUpper(string(s[0])) + s[1:]
 }
+
+func FilterInPlace[T any](slice *[]T, predicate func(T) bool) {
+	newIndex := 0
+	for _, item := range *slice {
+		if predicate(item) { // Check if the item satisfies the predicate
+			(*slice)[newIndex] = item // Place the item at the new index
+			newIndex++               // Increment the new index
+		}
+	}
+	// Resize the slice to keep only the filtered elements
+	*slice = (*slice)[:newIndex]
+}

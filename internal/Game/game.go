@@ -69,3 +69,9 @@ func (g *Game) findObjsInGame(objectName string) []ObjectInt {
 
   return result
 }
+
+func (g *Game) RemoveFromScene(obj ObjectInt) {
+  FilterInPlace(&g.currentView.Objects, func(o ObjectInt)bool {
+    return !o.equals(obj)
+  })
+}
