@@ -67,6 +67,12 @@ func (g *Game) findObjsInGame(objectName string) []ObjectInt {
     }
   }
 
+  for _,o := range g.Inventory.items {
+    if strings.Contains(o.getDescription(), objectName) {
+      result = append(result, o)
+    }
+  }
+
   return result
 }
 
