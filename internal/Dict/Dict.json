@@ -11,7 +11,7 @@
     "e","end", "done", "out"
   ],
   "read": ["r"],
-  "pick": ["p"],
+  "pickup": ["p", "pick", "take"],
   "open": ["o"],
   "inventory": ["i"],
   "test": ["dev"]
