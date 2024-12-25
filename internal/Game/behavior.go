@@ -1,5 +1,7 @@
 package Game
 
+import "strconv"
+
 type Object struct {
 	description string
 }
@@ -26,7 +28,8 @@ type PickableInt interface  {
 }
 
 func (p *Pickable) Pickup(g *Game) {
-	println("picked up ", p.weight, " grams of ", p.description)
+  g.Inventory.Add(p)
+	Respond("picked up ", strconv.Itoa(p.weight) , " grams of ", p.description)
 }
 
 func (p *Pickable) getWeight() int {

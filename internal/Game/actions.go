@@ -2,6 +2,7 @@ package Game
 
 import (
 	"slices"
+	"strconv"
 	"strings"
 )
 
@@ -20,10 +21,16 @@ func getActionNames(g *Game) map[string]Action {
     "unlock": g.Unlock,
     "pickup": g.Pickup,
     "inventory": g.GetInventory,
+    "weight": g.CarryWeight,
   }
 }
 
 type Action func(args ...string)
+
+
+func (a *Game) CarryWeight(args ...string) {
+  Respond(strconv.Itoa(a.Inventory.CarryWeight.value))
+}
 
 func (a *Game) GetInventory(args ...string) {
   a.Inventory.Describe()

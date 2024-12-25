@@ -17,7 +17,7 @@ func NewGame(worldName string) *Game {
     currentWorld: world,
     currentView: view,
     exit: false,
-    Inventory: Inventory{},
+    Inventory: Inventory{CarryWeight: CarryWeight{max: 100}},
   }
 }
 
