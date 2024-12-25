@@ -25,17 +25,23 @@ type Action func(args ...string)
 
 func (a *Game) Unlock(args ...string) {
   action := a.NewTwoStepAction("unlock", (*LockInt)(nil), (*KeyInt)(nil), args...)
-  action(a)
+  if action != nil {
+    action(a)
+  }
 }
 
 func (a *Game) Read(args ...string) {
   action := a.NewSingleAction("read", (*ReadableInt)(nil), args...)
-  action()
+  if action != nil {
+    action()
+  }
 }
 
 func (a *Game) Open(args ...string) {
   action := a.NewSingleAction("open", (*ContainerInt)(nil), args...)
-  action(a)
+  if action != nil {
+    action(a)
+  }
 }
 
 func (a *Game) Test(args ...string) {
