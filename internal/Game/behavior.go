@@ -80,7 +80,7 @@ type Lockable struct {
 
 type LockInt interface {
   ObjectInt
-  Unlock(g *Game)
+  Unlock(k KeyInt)
 }
 
 type Unlocker struct {
@@ -88,17 +88,21 @@ type Unlocker struct {
 	id string
 }
 
-func (l *Lockable) Unlock(g *Game) {
-  Respond("With what?")
-  GetUserInput()
+type KeyInt interface {
+  getKeyId() string
+}
 
-  k := NewKey("fkfk", "12s")
-	if l.id == k.id {
+func (l *Lockable) Unlock(k KeyInt) {
+	if l.id == k.getKeyId() {
 		println("Unlocked the", l.description)
     l.isLocked = false
 	} else {
     println("the key does not match the lock")
   }
+}
+
+func (u *Unlocker) getKeyId() string {
+  return u.id
 }
 
 //---------------------------------

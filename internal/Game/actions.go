@@ -24,7 +24,7 @@ func getActionNames(g *Game) map[string]Action {
 type Action func(args ...string)
 
 func (a *Game) Unlock(args ...string) {
-  action := a.NewSingleAction("unlock", (*LockInt)(nil), args...)
+  action := a.NewTwoStepAction("unlock", (*LockInt)(nil), (*KeyInt)(nil), args...)
   action(a)
 }
 

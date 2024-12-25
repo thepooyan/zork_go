@@ -45,7 +45,7 @@ func GetUserInput() string {
   Output("\n\n => ")
   response := Input()
   Output("\n")
-  return response
+  return strings.TrimSuffix(response, "\n")
 }
 
 func fileExists(filename string) bool {
