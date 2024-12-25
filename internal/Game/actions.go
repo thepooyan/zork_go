@@ -24,18 +24,17 @@ func getActionNames(g *Game) map[string]Action {
 type Action func(args ...string)
 
 func (a *Game) Unlock(args ...string) {
-  action := a.NewSingleAction("unlock", "Unlock", (*LockInt)(nil), args...)
-  // action := a.NewTwoStepAction("unlock", "Unlock", (*LockInt)(nil), args...)
+  action := a.NewSingleAction("unlock", (*LockInt)(nil), args...)
   action(a)
 }
 
 func (a *Game) Read(args ...string) {
-  action := a.NewSingleAction("read", "Read", (*ReadableInt)(nil), args...)
+  action := a.NewSingleAction("read", (*ReadableInt)(nil), args...)
   action()
 }
 
 func (a *Game) Open(args ...string) {
-  action := a.NewSingleAction("open", "Open", (*ContainerInt)(nil), args...)
+  action := a.NewSingleAction("open", (*ContainerInt)(nil), args...)
   action(a)
 }
 

@@ -122,3 +122,10 @@ func RemoveXmlIndentation(text string) string {
   fls := strings.Fields(text)
   return strings.Join(fls, " ")
 }
+
+func CapitalizeFirstLetter(s string) string {
+	if len(s) == 0 {
+		return s // Return the original string if it's empty
+	}
+	return strings.ToUpper(string(s[0])) + s[1:]
+}

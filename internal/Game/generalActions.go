@@ -6,7 +6,8 @@ import (
 	"strings"
 )
 
-func (a *Game) NewSingleAction(actionName, methodName string, iface any, args ...string) func(actioargs ...any) {
+func (a *Game) NewSingleAction(actionName string, iface any, args ...string) func(actioargs ...any) {
+  methodName := CapitalizeFirstLetter(actionName)
 	return func(actionArgs ...any) {
 		if notEnoughArgs(2, args...) {
 			Respond(actionName, " what?")
