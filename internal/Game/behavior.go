@@ -60,7 +60,7 @@ type ReadableInt interface {
 }
 
 func (r *Readable) Read() {
-	println("Reading the", r.description, "=>", r.message)
+	Respond("Reading the", r.description, "=>", r.message)
 }
 
 //_________________
@@ -109,10 +109,10 @@ type KeyInt interface {
 
 func (l *Lockable) Unlock(k KeyInt) {
 	if l.id == k.getKeyId() {
-		println("Unlocked the", l.description)
+		Respond("Unlocked the", l.description)
     l.isLocked = false
 	} else {
-    println("the key does not match the lock")
+    Respond("the key does not match the lock")
   }
 }
 

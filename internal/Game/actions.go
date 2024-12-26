@@ -66,7 +66,7 @@ func (a *Game) Open(args ...string) {
 
 func (a *Game) Test(args ...string) {
   for _,i := range a.currentView.HiddenNotes {
-    println(i.Content)
+    Respond(i.Content)
   }
 }
 

@@ -107,7 +107,7 @@ func parseChildNodes(e *etree.Element) []ObjectInt {
 				b := NewKey(o.SelectAttrValue("description", ""), o.SelectAttrValue("id", ""))
 				Objects = append(Objects, b)
 			default:
-				println("unknown object while parsing: ", o.Tag)
+				Respond("unknown object while parsing: ", o.Tag)
 			}
 		}
 	}
