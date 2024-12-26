@@ -24,10 +24,23 @@ func getActionNames(g *Game) map[string]Action {
     "weight": g.CarryWeight,
     "iloveyou": g.Love,
     "lock": g.Lock,
+    "drop": g.Drop,
   }
 }
 
 type Action func(args ...string)
+
+func (a *Game) Drop(args ...string) {
+  target := strings.Join(args[1:], " ")
+  item, ok := a.Inventory.Find(target)
+  if ok {
+    a.Inventory.Remove(item)
+    a.currentView.Objects = append(a.currentView.Objects, item)
+    Respond("Dropped ", item.getDescription())
+  } else {
+    Respond("You have no '", target, "' in your inventory!")
+  }
+}
 
 func (a *Game) Lock(args ...string) {
   action := a.NewSingleAction("lock", (*LockInt)(nil), args...)
