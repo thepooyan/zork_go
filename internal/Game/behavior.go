@@ -80,17 +80,26 @@ type ContainerInt interface {
 }
 
 func (c *Container) Open(g *Game) {
-	Respond("opening the ", c.description, "...")
   c.ListStuff()
   g.currentView.Objects = append(g.currentView.Objects, c.content...)
+  c.EmptyStuff()
 }
 
 func (c *Container) ListStuff() {
+  if len(c.content) == 0 {
+    Respond("the ", c.getDescription()," is empty!")
+    return
+  }
+  Respond("inside the ", c.getDescription(), ":")
   inside := make([]string, 0)
   for _,i := range c.content {
     inside = append(inside, i.getDescription())
   }
   printBoxedText(inside, 5)
+}
+
+func (c *Container) EmptyStuff() {
+  c.content = make([]ObjectInt, 0)
 }
 
 func (c *Container) Add(item ObjectInt) {
