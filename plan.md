@@ -7,6 +7,7 @@
 + auto completion
 + list of discoverd verbs
 + normal mode and insert mode????????
++ use lip gloss
 - people
 - action on people
 - action on places
