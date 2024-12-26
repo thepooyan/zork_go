@@ -7,7 +7,6 @@ type Game struct {
   currentView View
   exit bool
   Inventory
-  prefix string
 }
 
 func NewGame(worldName string) *Game {
