@@ -2,10 +2,11 @@ package Game
 
 import (
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/bubbles/textinput"
 )
 
 func (g Game) Init() tea.Cmd {
-	return nil
+	return textinput.Blink
 }
 
 func (g Game) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
@@ -19,12 +20,16 @@ func (g Game) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return g, tea.Quit
 		}
 	}
-	return g, nil
+
+  var cmd tea.Cmd
+  g.textInput, cmd = g.textInput.Update(msg)
+	return g, cmd
 }
 
 func (g Game) View() string {
   view := "** dummy ** \n"
 
+  view += g.textInput.View()
 
 	return view
 }
