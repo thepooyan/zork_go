@@ -87,7 +87,7 @@ func parseChildNodes(e *etree.Element) []ObjectInt {
 		for _, o := range e.ChildElements() {
 			switch o.Tag {
 			case "letter":
-				l := NewLetter(o.Text(), o.SelectAttrValue("description", ""))
+				l := NewLetter(RemoveXmlIndentation(o.Text()), o.SelectAttrValue("description", ""))
 				Objects = append(Objects, l)
 			case "box":
 				b := NewBox(o.SelectAttrValue("description", ""))

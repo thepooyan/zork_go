@@ -60,7 +60,8 @@ type ReadableInt interface {
 }
 
 func (r *Readable) Read() {
-	Respond("Reading the", r.description, "=>", r.message)
+  Respond("Reading the ", r.description, ":")
+  printBoxedText(r.message, 10)
 }
 
 //_________________

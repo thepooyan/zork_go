@@ -147,3 +147,14 @@ func FilterInPlace[T any](slice *[]T, predicate func(T) bool) {
 	// Resize the slice to keep only the filtered elements
 	*slice = (*slice)[:newIndex]
 }
+
+func printBoxedText(text string, padding int) {
+	padSpace := strings.Repeat(" ", padding)
+	paddedText := padSpace + text + padSpace
+	textLength := len(paddedText)
+	border := strings.Repeat("*", textLength+4)
+
+	fmt.Println(border)
+	fmt.Printf("* %s *\n", paddedText)
+	fmt.Println(border)
+}
