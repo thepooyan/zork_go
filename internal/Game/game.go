@@ -10,8 +10,8 @@ import (
 type Game struct {
   currentWorld World
   currentView View
-  exit bool
   Inventory
+  exit bool
 }
 
 func NewGame(worldName string) *Game {
@@ -23,12 +23,6 @@ func NewGame(worldName string) *Game {
     exit: false,
     Inventory: Inventory{CarryWeight: CarryWeight{max: 100}},
   }
-}
-
-func StartGame() {
-  game := NewGame("World1");
-  game.Describe()
-  game.loop()
 }
 
 func (g *Game) loop() {

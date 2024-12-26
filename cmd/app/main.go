@@ -1,9 +1,17 @@
 package main
 
 import (
-  "zork/internal/Game"
+	"fmt"
+	"os"
+	"zork/internal/Game"
+
+	tea "github.com/charmbracelet/bubbletea"
 )
 
 func main() {
-  Game.StartGame();
+	p := tea.NewProgram(Game.NewGame("World1"))
+	if _, err := p.Run(); err != nil {
+		fmt.Printf("Alas, there's been an error: %v", err)
+		os.Exit(1)
+	}
 }
