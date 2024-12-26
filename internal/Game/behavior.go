@@ -117,6 +117,7 @@ type Lockable struct {
 type LockInt interface {
   ObjectInt
   Unlock(k KeyInt, g *Game) bool
+  Lock()
 }
 
 type Unlocker struct {
@@ -126,6 +127,11 @@ type Unlocker struct {
 
 type KeyInt interface {
   getKeyId() string
+}
+
+func (l *Lockable) Lock() {
+  l.isLocked = true
+  Respond("Locked!")
 }
 
 func (l *Lockable) Unlock(k KeyInt, g *Game) bool {
@@ -138,6 +144,8 @@ func (l *Lockable) Unlock(k KeyInt, g *Game) bool {
     return false
   }
 }
+
+
 
 func (u *Unlocker) getKeyId() string {
   return u.id

@@ -23,10 +23,18 @@ func getActionNames(g *Game) map[string]Action {
     "inventory": g.GetInventory,
     "weight": g.CarryWeight,
     "iloveyou": g.Love,
+    "lock": g.Lock,
   }
 }
 
 type Action func(args ...string)
+
+func (a *Game) Lock(args ...string) {
+  action := a.NewSingleAction("lock", (*LockInt)(nil), args...)
+  if action != nil {
+    action()
+  }
+}
 
 func (a *Game) Love(args ...string) {
   Respond("iloveyou too ^^")
