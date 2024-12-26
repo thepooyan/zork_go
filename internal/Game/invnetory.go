@@ -2,6 +2,7 @@ package Game
 
 import (
 	"errors"
+	"strconv"
 	"strings"
 )
 
@@ -31,12 +32,19 @@ func (inv *Inventory) Find(itemName string) ( PickableInt, bool ) {
 
 func (inv *Inventory) Remove(item PickableInt) {
   FilterInPlace(&inv.items, func(i PickableInt) bool { return !i.equals(item) })
+  inv.CarryWeight.Drop(item.getWeight())
 }
 
 func (inv *Inventory) Describe() {
-  for _,i := range inv.items {
-    Respond(i.getDescription())
+  if len(inv.items) == 0 {
+    Respond("Inventory empty")
+    return
   }
+  descs := make([]string, 0)
+  for _,i := range inv.items {
+    descs = append(descs, i.getDescription())
+  }
+  printBoxedText(descs, 5)
 }
 
 type CarryWeight struct {
@@ -60,3 +68,6 @@ func (c *CarryWeight) Drop(amount int) {
   c.value -= amount
 }
 
+func (c *CarryWeight) Print() {
+  Respond("the weight you're carrying: ", strconv.Itoa(c.value))
+}

@@ -2,7 +2,6 @@ package Game
 
 import (
 	"slices"
-	"strconv"
 	"strings"
 )
 
@@ -55,10 +54,11 @@ func (a *Game) Love(args ...string) {
 
 
 func (a *Game) CarryWeight(args ...string) {
-  Respond(strconv.Itoa(a.Inventory.CarryWeight.value))
+  a.Inventory.CarryWeight.Print()
 }
 
 func (a *Game) GetInventory(args ...string) {
+  a.Inventory.CarryWeight.Print()
   a.Inventory.Describe()
 }
 
