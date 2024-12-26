@@ -148,13 +148,21 @@ func FilterInPlace[T any](slice *[]T, predicate func(T) bool) {
 	*slice = (*slice)[:newIndex]
 }
 
-func printBoxedText(text string, padding int) {
-	padSpace := strings.Repeat(" ", padding)
-	paddedText := padSpace + text + padSpace
-	textLength := len(paddedText)
+func printBoxedText(texts []string, padding int) {
+	maxLength := 0
+	for _, text := range texts {
+		if len(text) > maxLength {
+			maxLength = len(text)
+		}
+	}
+
+	textLength := maxLength + (2 * padding)
 	border := strings.Repeat("*", textLength+4)
 
 	fmt.Println(border)
-	fmt.Printf("* %s *\n", paddedText)
+	for _, text := range texts {
+		paddedText := fmt.Sprintf("%s%s%s", strings.Repeat(" ", padding), text, strings.Repeat(" ", textLength-len(text)-padding))
+		fmt.Printf("* %s *\n", paddedText)
+	}
 	fmt.Println(border)
 }

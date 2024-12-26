@@ -18,6 +18,7 @@
         <letter description="inner letter">
           inner letter content
         </letter>
+        <key id="11" description="gold key"/>
       </box>
       <lockedBox id="12s" description="big black metal box">
         <letter description="red letter">

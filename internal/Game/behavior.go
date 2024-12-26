@@ -1,6 +1,8 @@
 package Game
 
-import "strconv"
+import (
+	"strconv"
+)
 
 type Object struct {
 	description string
@@ -61,7 +63,7 @@ type ReadableInt interface {
 
 func (r *Readable) Read() {
   Respond("Reading the ", r.description, ":")
-  printBoxedText(r.message, 10)
+  printBoxedText([]string{r.message}, 10)
 }
 
 //_________________
@@ -79,7 +81,16 @@ type ContainerInt interface {
 
 func (c *Container) Open(g *Game) {
 	Respond("opening the ", c.description, "...")
+  c.ListStuff()
   g.currentView.Objects = append(g.currentView.Objects, c.content...)
+}
+
+func (c *Container) ListStuff() {
+  inside := make([]string, 0)
+  for _,i := range c.content {
+    inside = append(inside, i.getDescription())
+  }
+  printBoxedText(inside, 5)
 }
 
 func (c *Container) Add(item ObjectInt) {
