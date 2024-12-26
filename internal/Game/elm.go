@@ -23,5 +23,8 @@ func (g Game) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (g Game) View() string {
-	return "hello"
+  view := "** dummy ** \n"
+
+
+	return view
 }
