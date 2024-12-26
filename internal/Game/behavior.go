@@ -116,7 +116,7 @@ type Lockable struct {
 
 type LockInt interface {
   ObjectInt
-  Unlock(k KeyInt)
+  Unlock(k KeyInt) bool
 }
 
 type Unlocker struct {
@@ -128,12 +128,14 @@ type KeyInt interface {
   getKeyId() string
 }
 
-func (l *Lockable) Unlock(k KeyInt) {
+func (l *Lockable) Unlock(k KeyInt) bool {
 	if l.id == k.getKeyId() {
-		Respond("Unlocked the", l.description)
+		Respond("unlocked the ", l.description)
     l.isLocked = false
+    return true
 	} else {
     Respond("the key does not match the lock")
+    return false
   }
 }
 
@@ -151,8 +153,15 @@ type LockedContainer struct {
 
 func (l *LockedContainer) Open(g *Game) {
   if (l.Lockable.isLocked) {
-    Respond("can't open the ", l.getDescription(),". it's Locked")
+    Respond("the ", l.getDescription()," is Locked. you have to unlock it first")
   } else {
     l.Container.Open(g)
   }
+}
+
+func (l *LockedContainer) Unlock(k KeyInt) bool {
+  result := l.Lockable.Unlock(k)
+  Respond("now you can open it")
+  // l.Container.Open(g *Game)
+  return result
 }

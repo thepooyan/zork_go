@@ -14,20 +14,20 @@
       <letter description="test letter">
         this is test
       </letter>
-      <box description="old looking box">
+      <box description="red box">
         <letter description="inner letter">
           inner letter content
         </letter>
         <key id="11" description="gold key"/>
       </box>
-      <lockedBox id="12s" description="big black metal box">
-        <letter description="red letter">
+      <lockedBox id="12s" description="metal box">
+        <letter description="old letter">
               by the time you read this,
               I shall be gone.
               and so will you!
           </letter>
       </lockedBox>
-      <key id="12s" description="old wired looking key"/>
+      <key id="12s" description="wired key"/>
     </objects>
     <hidden_notes>
         <note keyword="table">
