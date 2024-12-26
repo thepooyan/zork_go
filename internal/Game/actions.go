@@ -1,6 +1,7 @@
 package Game
 
 import (
+	"os"
 	"slices"
 	"strings"
 )
@@ -24,10 +25,35 @@ func getActionNames(g *Game) map[string]Action {
     "iloveyou": g.Love,
     "lock": g.Lock,
     "drop": g.Drop,
+    "save": g.SaveGame,
   }
 }
 
 type Action func(args ...string)
+
+func (a *Game) LoadGame(args ...string) {
+  saves,err := os.ReadDir("./saves")
+  if err != nil {
+    Respond("Error opening the saves directory")
+    return
+  }
+  if len(saves) == 0 {
+    Respond("You have no save files")
+    return
+  }
+  Respond("Which save to load?")
+  for _,s := range saves {
+    Respond("- ", s.Name())
+  }
+  input := GetUserInput()
+  a.Load(input)
+}
+
+func (a *Game) SaveGame(args ...string) {
+  Respond("Saving the game as:")
+  name := GetUserInput()
+  a.Save(name)
+}
 
 func (a *Game) Drop(args ...string) {
   target := strings.Join(args[1:], " ")

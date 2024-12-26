@@ -48,26 +48,26 @@ func (inv *Inventory) Describe() {
 }
 
 type CarryWeight struct {
-  value int
+  Value int
   max int
 }
 
 func (c *CarryWeight) test(amount int) bool {
-  return c.value + amount <= c.max
+  return c.Value + amount <= c.max
 }
 
 func (c *CarryWeight) Add(amount int) (int, error) {
   if c.test(amount) {
-     c.value += amount
+     c.Value += amount
      return amount, nil
   }
   return amount, errors.New("More than you can carry!")
 }
 
 func (c *CarryWeight) Drop(amount int) {
-  c.value -= amount
+  c.Value -= amount
 }
 
 func (c *CarryWeight) Print() {
-  Respond("the weight you're carrying: ", strconv.Itoa(c.value))
+  Respond("the weight you're carrying: ", strconv.Itoa(c.Value))
 }

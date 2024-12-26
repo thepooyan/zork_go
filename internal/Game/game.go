@@ -1,6 +1,11 @@
 package Game
 
-import "strings"
+import (
+	"encoding/gob"
+	"fmt"
+	"os"
+	"strings"
+)
 
 type Game struct {
   currentWorld World
@@ -79,4 +84,40 @@ func (g *Game) RemoveFromScene(obj ObjectInt) {
   FilterInPlace(&g.currentView.Objects, func(o ObjectInt)bool {
     return !o.equals(obj)
   })
+}
+
+func (g *Game) Save(saveName string) {
+  file, err := os.Create(fmt.Sprintf("./saves/%s", saveName))
+  if err != nil {
+    Respond("Error creating file")
+    fmt.Println(err)
+    return
+  }
+  defer file.Close()
+  encoder := gob.NewEncoder(file)
+  err = encoder.Encode(g)
+  if err != nil {
+    Respond("Error saving the game")
+    fmt.Println(err)
+    return
+  }
+  Respond("Saved successfully!")
+}
+
+func (g *Game) Load(saveName string) {
+  file, err := os.Open(fmt.Sprintf("./saves/%s", saveName))
+  if err != nil {
+    Respond("Error opening the file")
+    fmt.Println(err)
+    return
+  }
+  defer file.Close()
+  decoder := gob.NewDecoder(file)
+  err = decoder.Decode(&g)
+  if err != nil {
+    Respond("Error loading the game")
+    fmt.Println(err)
+    return
+  }
+  Respond("Loaded successfully!")
 }
