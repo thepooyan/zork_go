@@ -1,2 +1,5 @@
 verbs:
-destroy
+
+burn (destroy)
+eat
+fxxk

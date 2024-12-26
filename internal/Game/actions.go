@@ -22,10 +22,15 @@ func getActionNames(g *Game) map[string]Action {
     "pickup": g.Pickup,
     "inventory": g.GetInventory,
     "weight": g.CarryWeight,
+    "iloveyou": g.Love,
   }
 }
 
 type Action func(args ...string)
+
+func (a *Game) Love(args ...string) {
+  Respond("iloveyou too ^^")
+}
 
 
 func (a *Game) CarryWeight(args ...string) {
