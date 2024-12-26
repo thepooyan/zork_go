@@ -116,7 +116,7 @@ type Lockable struct {
 
 type LockInt interface {
   ObjectInt
-  Unlock(k KeyInt) bool
+  Unlock(k KeyInt, g *Game) bool
 }
 
 type Unlocker struct {
@@ -128,7 +128,7 @@ type KeyInt interface {
   getKeyId() string
 }
 
-func (l *Lockable) Unlock(k KeyInt) bool {
+func (l *Lockable) Unlock(k KeyInt, g *Game) bool {
 	if l.id == k.getKeyId() {
 		Respond("unlocked the ", l.description)
     l.isLocked = false
@@ -159,9 +159,8 @@ func (l *LockedContainer) Open(g *Game) {
   }
 }
 
-func (l *LockedContainer) Unlock(k KeyInt) bool {
-  result := l.Lockable.Unlock(k)
-  Respond("now you can open it")
-  // l.Container.Open(g *Game)
+func (l *LockedContainer) Unlock(k KeyInt, g *Game) bool {
+  result := l.Lockable.Unlock(k, g)
+  l.Container.Open(g)
   return result
 }

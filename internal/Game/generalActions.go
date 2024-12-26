@@ -78,7 +78,7 @@ func (a *Game) NewTwoStepAction(actionName string, iface any, subjectFace any, a
 				return nil
 			}
 			return func(actionArgs ...any) {
-				action(o[0])
+				action(o[0], actionArgs[0])
 			}
 		case 0:
 			Respond("can't find any \"", obj, "\"s")
