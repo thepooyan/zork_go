@@ -15,9 +15,12 @@ func (g Game) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 
 		switch msg.String() {
-
-		case "ctrl+c", "q":
-			return g, tea.Quit
+      case "ctrl+c", "q":
+        return g, tea.Quit
+      case "enter":
+        g.calculateNextPrompt(g.textInput.Value())
+        g.textInput.SetValue("")
+        return g, nil
 		}
 	}
 
@@ -28,6 +31,8 @@ func (g Game) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (g Game) View() string {
   view := "** dummy ** \n"
+  view += g.prompt + "\n"
+  view += "\n"
 
   view += g.textInput.View()
 

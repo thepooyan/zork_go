@@ -14,11 +14,12 @@ type Game struct {
 	Inventory
 	exit      bool
 	textInput textinput.Model
+  prompt string
 }
 
 func initTextInput() textinput.Model {
 	ti := textinput.New()
-	ti.Placeholder = "Pikachu"
+	ti.Placeholder = "What do you do?"
 	ti.Focus()
 	ti.CharLimit = 156
 	ti.Width = 20
@@ -35,6 +36,12 @@ func NewGame(worldName string) *Game {
 		Inventory:    Inventory{CarryWeight: CarryWeight{max: 100}},
     textInput: initTextInput(),
 	}
+}
+
+func (g *Game) calculateNextPrompt(response string) {
+  action, args := g.analyzeResponse(response)
+  action(args...)
+  g.prompt = "next prompt"
 }
 
 func (g *Game) loop() {
