@@ -15,6 +15,7 @@ type Game struct {
 	exit      bool
 	textInput textinput.Model
   prompt string
+  VirtualOutput
 }
 
 func initTextInput() textinput.Model {
@@ -35,6 +36,7 @@ func NewGame(worldName string) *Game {
 		exit:         false,
 		Inventory:    Inventory{CarryWeight: CarryWeight{max: 100}},
     textInput: initTextInput(),
+    VirtualOutput: VirtualOutput{},
 	}
 }
 
@@ -42,14 +44,6 @@ func (g *Game) calculateNextPrompt(response string) {
   action, args := g.analyzeResponse(response)
   action(args...)
   g.prompt = "next prompt"
-}
-
-func (g *Game) loop() {
-	for !g.exit {
-		res := GetUserInput()
-		action, args := g.analyzeResponse(res)
-		action(args...)
-	}
 }
 
 func (g *Game) ChangeLocation(d Direction) {
@@ -101,7 +95,7 @@ func (g *Game) RemoveFromScene(obj ObjectInt) {
 func (g *Game) Save(saveName string) {
 	file, err := os.Create(fmt.Sprintf("./saves/%s", saveName))
 	if err != nil {
-		Respond("Error creating file")
+		g.Respond("Error creating file")
 		fmt.Println(err)
 		return
 	}
@@ -109,17 +103,17 @@ func (g *Game) Save(saveName string) {
 	encoder := gob.NewEncoder(file)
 	err = encoder.Encode(g)
 	if err != nil {
-		Respond("Error saving the game")
+		g.Respond("Error saving the game")
 		fmt.Println(err)
 		return
 	}
-	Respond("Saved successfully!")
+	g.Respond("Saved successfully!")
 }
 
 func (g *Game) Load(saveName string) {
 	file, err := os.Open(fmt.Sprintf("./saves/%s", saveName))
 	if err != nil {
-		Respond("Error opening the file")
+		g.Respond("Error opening the file")
 		fmt.Println(err)
 		return
 	}
@@ -127,9 +121,9 @@ func (g *Game) Load(saveName string) {
 	decoder := gob.NewDecoder(file)
 	err = decoder.Decode(&g)
 	if err != nil {
-		Respond("Error loading the game")
+		g.Respond("Error loading the game")
 		fmt.Println(err)
 		return
 	}
-	Respond("Loaded successfully!")
+	g.Respond("Loaded successfully!")
 }

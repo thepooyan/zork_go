@@ -10,7 +10,7 @@ func (a *Game) NewSingleAction(actionName string, iface any, args ...string) fun
 	methodName := CapitalizeFirstLetter(actionName)
 
 	if notEnoughArgs(2, args...) {
-		Respond(actionName, " what?")
+		a.Respond(actionName, " what?")
 		return nil
 	}
 
@@ -23,7 +23,7 @@ func (a *Game) NewSingleAction(actionName string, iface any, args ...string) fun
 		objType := reflect.TypeOf(o[0])
 
 		if !objType.Implements(ifaceType) {
-			Respond("can't "+actionName+" the ", o[0].getDescription())
+			a.Respond("can't "+actionName+" the ", o[0].getDescription())
 			return nil
 		}
 
@@ -43,7 +43,7 @@ func (a *Game) NewSingleAction(actionName string, iface any, args ...string) fun
 		}
 
 	case 0:
-		Respond("can't find any \"", target, "\"s")
+		a.Respond("can't find any \"", target, "\"s")
 		return nil
 
 	default:
@@ -51,7 +51,7 @@ func (a *Game) NewSingleAction(actionName string, iface any, args ...string) fun
 		for _, i := range o {
 			str = append(str, i.getDescription())
 		}
-		Respond(strings.Join(str, " or "), "?")
+		a.Respond(strings.Join(str, " or "), "?")
 		return nil
 	}
 }
@@ -64,8 +64,8 @@ func (a *Game) NewTwoStepAction(actionName string, iface any, subjectFace any, a
 	}
 	for {
 
-		Respond("with what?")
-		obj := GetUserInput()
+		a.Respond("with what?")
+		obj := ""
 		o := a.findObjsInGame(obj)
 
 		switch len(o) {
@@ -74,14 +74,14 @@ func (a *Game) NewTwoStepAction(actionName string, iface any, subjectFace any, a
 			objType := reflect.TypeOf(o[0])
 
 			if !objType.Implements(ifaceType) {
-				Respond("can't use the ", o[0].getDescription(), " to ", actionName)
+				a.Respond("can't use the ", o[0].getDescription(), " to ", actionName)
 				return nil
 			}
 			return func(actionArgs ...any) {
 				action(o[0], actionArgs[0])
 			}
 		case 0:
-			Respond("can't find any \"", obj, "\"s")
+			a.Respond("can't find any \"", obj, "\"s")
 			return nil
 
 		default:
@@ -89,7 +89,7 @@ func (a *Game) NewTwoStepAction(actionName string, iface any, subjectFace any, a
 			for _, i := range o {
 				str = append(str, i.getDescription())
 			}
-			Respond(strings.Join(str, " or "), "?")
+			a.Respond(strings.Join(str, " or "), "?")
 		}
 	}
 }

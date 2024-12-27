@@ -43,7 +43,7 @@ type PickableInt interface  {
 func (p *Pickable) Pickup(g *Game) {
   g.Inventory.Add(p)
   g.RemoveFromScene(p)
-	Respond("picked up ", strconv.Itoa(p.weight) , " grams of ", p.description)
+	g.Respond("picked up ", strconv.Itoa(p.weight) , " grams of ", p.description)
 }
 
 func (p *Pickable) getWeight() int {
@@ -61,8 +61,8 @@ type ReadableInt interface {
   Read()
 }
 
-func (r *Readable) Read() {
-  Respond("Reading the ", r.description, ":")
+func (r *Readable) Read(g *Game) {
+  g.Respond("Reading the ", r.description, ":")
   printBoxedText([]string{r.message}, 10)
 }
 
@@ -80,17 +80,17 @@ type ContainerInt interface {
 }
 
 func (c *Container) Open(g *Game) {
-  c.ListStuff()
+  c.ListStuff(g)
   g.currentView.Objects = append(g.currentView.Objects, c.content...)
   c.EmptyStuff()
 }
 
-func (c *Container) ListStuff() {
+func (c *Container) ListStuff(g *Game) {
   if len(c.content) == 0 {
-    Respond("the ", c.getDescription()," is empty!")
+    g.Respond("the ", c.getDescription()," is empty!")
     return
   }
-  Respond("inside the ", c.getDescription(), ":")
+  g.Respond("inside the ", c.getDescription(), ":")
   inside := make([]string, 0)
   for _,i := range c.content {
     inside = append(inside, i.getDescription())
@@ -129,18 +129,18 @@ type KeyInt interface {
   getKeyId() string
 }
 
-func (l *Lockable) Lock() {
+func (l *Lockable) Lock(g *Game) {
   l.isLocked = true
-  Respond("Locked!")
+  g.Respond("Locked!")
 }
 
 func (l *Lockable) Unlock(k KeyInt, g *Game) bool {
 	if l.id == k.getKeyId() {
-		Respond("unlocked the ", l.description)
+		g.Respond("unlocked the ", l.description)
     l.isLocked = false
     return true
 	} else {
-    Respond("the key does not match the lock")
+    g.Respond("the key does not match the lock")
     return false
   }
 }
@@ -161,7 +161,7 @@ type LockedContainer struct {
 
 func (l *LockedContainer) Open(g *Game) {
   if (l.Lockable.isLocked) {
-    Respond("the ", l.getDescription()," is Locked. you have to unlock it first")
+    g.Respond("the ", l.getDescription()," is Locked. you have to unlock it first")
   } else {
     l.Container.Open(g)
   }

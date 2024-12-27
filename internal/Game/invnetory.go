@@ -35,9 +35,9 @@ func (inv *Inventory) Remove(item PickableInt) {
   inv.CarryWeight.Drop(item.getWeight())
 }
 
-func (inv *Inventory) Describe() {
+func (inv *Inventory) Describe(g *Game) {
   if len(inv.items) == 0 {
-    Respond("Inventory empty")
+    g.Respond("Inventory empty")
     return
   }
   descs := make([]string, 0)
@@ -68,6 +68,6 @@ func (c *CarryWeight) Drop(amount int) {
   c.Value -= amount
 }
 
-func (c *CarryWeight) Print() {
-  Respond("the weight you're carrying: ", strconv.Itoa(c.Value))
+func (c *CarryWeight) Print(g *Game) {
+  g.Respond("the weight you're carrying: ", strconv.Itoa(c.Value))
 }

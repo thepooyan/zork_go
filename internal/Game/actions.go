@@ -34,25 +34,25 @@ type Action func(args ...string)
 func (a *Game) LoadGame(args ...string) {
   saves,err := os.ReadDir("./saves")
   if err != nil {
-    Respond("Error opening the saves directory")
+    a.Respond("Error opening the saves directory")
     return
   }
   if len(saves) == 0 {
-    Respond("You have no save files")
+    a.Respond("You have no save files")
     return
   }
-  Respond("Which save to load?")
+  a.Respond("Which save to load?")
   for _,s := range saves {
-    Respond("- ", s.Name())
+    a.Respond("- ", s.Name())
   }
-  input := GetUserInput()
-  a.Load(input)
+  // input := GetUserInput()
+  // a.Load(input)
 }
 
 func (a *Game) SaveGame(args ...string) {
-  Respond("Saving the game as:")
-  name := GetUserInput()
-  a.Save(name)
+  a.Respond("Saving the game as:")
+  // name := GetUserInput()
+  // a.Save(name)
 }
 
 func (a *Game) Drop(args ...string) {
@@ -61,9 +61,9 @@ func (a *Game) Drop(args ...string) {
   if ok {
     a.Inventory.Remove(item)
     a.currentView.Objects = append(a.currentView.Objects, item)
-    Respond("Dropped ", item.getDescription())
+    a.Respond("Dropped ", item.getDescription())
   } else {
-    Respond("You have no '", target, "' in your inventory!")
+    a.Respond("You have no '", target, "' in your inventory!")
   }
 }
 
@@ -75,17 +75,17 @@ func (a *Game) Lock(args ...string) {
 }
 
 func (a *Game) Love(args ...string) {
-  Respond("iloveyou too ^^")
+  a.Respond("iloveyou too ^^")
 }
 
 
 func (a *Game) CarryWeight(args ...string) {
-  a.Inventory.CarryWeight.Print()
+  a.Inventory.CarryWeight.Print(a)
 }
 
 func (a *Game) GetInventory(args ...string) {
-  a.Inventory.CarryWeight.Print()
-  a.Inventory.Describe()
+  a.Inventory.CarryWeight.Print(a)
+  a.Inventory.Describe(a)
 }
 
 func (a *Game) Pickup(args ...string) {
@@ -118,7 +118,7 @@ func (a *Game) Open(args ...string) {
 
 func (a *Game) Test(args ...string) {
   for _,i := range a.currentView.HiddenNotes {
-    Respond(i.Content)
+    a.Respond(i.Content)
   }
 }
 
@@ -128,30 +128,30 @@ func (a *Game) Search(args ...string) {
   found := false
   for _,i := range a.currentView.HiddenNotes {
     if strings.Contains(wholeSentence, i.Keyword) {
-      Respond(i.Content)
+      a.Respond(i.Content)
       found = true
     }
   }
   if !found {
-    Respond("Nothing found...")
+    a.Respond("Nothing found...")
   }
 }
  
 func (a *Game) Hi(args ...string) {
- Respond("Hello!")
+ a.Respond("Hello!")
 }
 
 func (a *Game) Idol(args ...string) {
-  Respond("Doing nothing!...")
+  a.Respond("Doing nothing!...")
 }
 
 func (a *Game) Unknown(args ...string) {
-  Respond("i dunno what \"" + args[0] + "\" is :/")
+  a.Respond("i dunno what \"" + args[0] + "\" is :/")
 }
 
 func (a *Game) Move(args ...string) {
   if notEnoughArgs(2, args...) {
-    Respond("Move where? :/")
+    a.Respond("Move where? :/")
     return
   }
   var dir Direction
@@ -165,30 +165,30 @@ func (a *Game) Move(args ...string) {
     case "right", "east", "r", "e":
       dir = Right;
     default:
-      Respond("you can't go \"", args[1], "\"")
+      a.Respond("you can't go \"", args[1], "\"")
       return
   }
   if slices.Contains(a.currentView.Neighbors, dir) {
-    Respond("going ", args[1], "...")
+    a.Respond("going ", args[1], "...")
     a.ChangeLocation(dir)
   } else {
-    Respond("No path there...")
+    a.Respond("No path there...")
   }
 }
 
 func (a *Game) Describe(args ...string) {
-  Describe(a.currentView.StoryNote)
+  a.Tell(a.currentView.StoryNote)
 
   for _,o := range a.currentView.Objects {
-    Describe(AddRandomSmalltalk(o.getDescription()))
+    a.Tell(AddRandomSmalltalk(o.getDescription()))
   }
   for _,o := range a.currentView.People {
-    Describe(AddRandomSmalltalk(o.Description))
+    a.Tell(AddRandomSmalltalk(o.Description))
   }
 }
 
 func (a *Game) Exit(args ...string) {
- Respond("Sending the exit signal...") 
+ a.Respond("Sending the exit signal...") 
  a.exit = true;
 }
 

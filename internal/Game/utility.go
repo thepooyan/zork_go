@@ -9,29 +9,37 @@ import (
 	"strings"
 )
 
-func Outputln(write ...string) {
-  join := strings.Join(write, "")
-  fmt.Println(join)
+type VirtualOutput struct {
+  cache string
 }
 
-func Output(write string) {
-  fmt.Print(write)
+func (v *VirtualOutput) write(content ...string) {
+  l := strings.Join(content, " ")
+  v.cache += l
+  v.cache += "\n"
 }
 
-func Respond(write ...string) {
+func (v *VirtualOutput) flush() string {
+  temp := v.cache
+  v.cache = ""
+  return temp
+}
+
+
+func (g *Game) Respond(write ...string) {
   folan := append([]string{"\n "}, write...)
   folan = append(folan, "\n")
-  Outputln(folan...)
+  g.VirtualOutput.write(folan...)
 }
 
-func Describe(write ...string) {
+func (g *Game) Tell(write ...string) {
   prefix := "-     "
   modify := make([]string, 0)
 
   for _,i := range write {
     modify = append(modify, prefix+i)
   }
-  Outputln(modify...)
+  g.VirtualOutput.write(modify...)
 }
 
 func Input() string {
@@ -40,25 +48,12 @@ func Input() string {
   return res
 }
 
-func GetUserInput() string {
-  Output("\n\n => ")
-  response := Input()
-  Output("\n")
-  return strings.TrimSuffix(response, "\n")
-}
-
 func fileExists(filename string) bool {
     _, err := os.Stat(filename)
     if os.IsNotExist(err) {
         return false // File does not exist
     }
     return err == nil // Return true if no error, false otherwise
-}
-
-func ListStuff(stuff []ObjectInt) {
-  for _,i := range stuff {
-    Outputln(i.getDescription())
-  }
 }
 
 func AddRandomSmalltalk(description string) string {
