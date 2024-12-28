@@ -14,6 +14,10 @@ type VirtualOutput struct {
   output string
 }
 
+func (v *VirtualOutput) clear() {
+  v.output = ""
+}
+
 func (v *VirtualOutput) write(content ...string) {
   l := strings.Join(content, " ")
   v.cache += l

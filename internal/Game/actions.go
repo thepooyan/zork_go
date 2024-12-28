@@ -26,10 +26,15 @@ func getActionNames(g *Game) map[string]Action {
     "lock": g.Lock,
     "drop": g.Drop,
     "save": g.SaveGame,
+    "clear": g.Clear,
   }
 }
 
 type Action func(args ...string)
+
+func (a *Game) Clear(args ...string) {
+  a.VirtualOutput.clear()
+}
 
 func (a *Game) LoadGame(args ...string) {
   saves,err := os.ReadDir("./saves")
