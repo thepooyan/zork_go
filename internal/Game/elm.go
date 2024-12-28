@@ -1,8 +1,8 @@
 package Game
 
 import (
-	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/bubbles/textinput"
+	tea "github.com/charmbracelet/bubbletea"
 )
 
 func (g Game) Init() tea.Cmd {
@@ -15,26 +15,26 @@ func (g Game) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 
 		switch msg.String() {
-      case "ctrl+c", "q":
-        return g, tea.Quit
-      case "enter":
-        g.calculateNextPrompt(g.textInput.Value())
-        g.textInput.SetValue("")
-        return g, nil
+		case "ctrl+c", "q":
+			return g, tea.Quit
+		case "enter":
+			g.calculateNextPrompt(g.textInput.Value())
+			g.textInput.SetValue("")
+			return g, nil
 		}
 	}
 
-  var cmd tea.Cmd
-  g.textInput, cmd = g.textInput.Update(msg)
+	var cmd tea.Cmd
+	g.textInput, cmd = g.textInput.Update(msg)
 	return g, cmd
 }
 
 func (g Game) View() string {
-  view := ""
-  view += g.VirtualOutput.output + "\n"
-  view += "\n"
+	view := ""
+	view += g.VirtualOutput.output + "\n"
+	view += "\n"
 
-  view += g.textInput.View()
+	view += g.textInput.View()
 
 	return view
 }
