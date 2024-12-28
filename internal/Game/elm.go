@@ -30,8 +30,8 @@ func (g Game) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (g Game) View() string {
-  view := "** dummy ** \n"
-  view += g.prompt + "\n"
+  view := ""
+  view += g.VirtualOutput.output + "\n"
   view += "\n"
 
   view += g.textInput.View()

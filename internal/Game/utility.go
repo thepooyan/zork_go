@@ -11,6 +11,7 @@ import (
 
 type VirtualOutput struct {
   cache string
+  output string
 }
 
 func (v *VirtualOutput) write(content ...string) {
@@ -19,10 +20,9 @@ func (v *VirtualOutput) write(content ...string) {
   v.cache += "\n"
 }
 
-func (v *VirtualOutput) flush() string {
-  temp := v.cache
+func (v *VirtualOutput) flush() {
+  v.output += v.cache
   v.cache = ""
-  return temp
 }
 
 

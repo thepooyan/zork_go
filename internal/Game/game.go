@@ -14,7 +14,6 @@ type Game struct {
 	Inventory
 	exit      bool
 	textInput textinput.Model
-  prompt string
   VirtualOutput
 }
 
@@ -41,9 +40,10 @@ func NewGame(worldName string) *Game {
 }
 
 func (g *Game) calculateNextPrompt(response string) {
+  g.VirtualOutput.write("> " + response)
   action, args := g.analyzeResponse(response)
   action(args...)
-  g.prompt = g.VirtualOutput.flush()
+  g.VirtualOutput.flush()
 }
 
 func (g *Game) ChangeLocation(d Direction) {
