@@ -27,10 +27,15 @@ func getActionNames(g *Game) map[string]Action {
     "drop": g.Drop,
     "save": g.SaveGame,
     "clear": g.Clear,
+    "wait": g.Wait,
   }
 }
 
 type Action func(args ...string)
+
+func (a *Game) Wait(args ...string) {
+  a.Respond("Waiting...")
+}
 
 func (a *Game) Clear(args ...string) {
   a.VirtualOutput.clear()
