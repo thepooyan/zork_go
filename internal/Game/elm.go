@@ -6,6 +6,7 @@ import (
 )
 
 func (g Game) Init() tea.Cmd {
+  g.prepareInitialPrompt()
 	return textinput.Blink
 }
 

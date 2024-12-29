@@ -39,6 +39,11 @@ func NewGame(worldName string) *Game {
 	}
 }
 
+func (g *Game) prepareInitialPrompt() {
+  g.Describe()
+  g.VirtualOutput.flush()
+}
+
 func (g *Game) calculateNextPrompt(response string) {
   g.VirtualOutput.write("> " + response)
   action, args := g.analyzeResponse(response)
