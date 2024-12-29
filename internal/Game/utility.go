@@ -31,18 +31,19 @@ func (v *VirtualOutput) flush() {
 
 
 func (g *Game) Respond(write ...string) {
-  folan := append([]string{"\n "}, write...)
-  folan = append(folan, "\n")
+  // folan := append([]string{"\n "}, write...)
+  folan := append(write, "\n")
   g.VirtualOutput.write(folan...)
 }
 
 func (g *Game) Tell(write ...string) {
-  prefix := "-     "
+  prefix := "| "
   modify := make([]string, 0)
 
   for _,i := range write {
     modify = append(modify, prefix+i)
   }
+  modify = append(modify, "\n")
   g.VirtualOutput.write(modify...)
 }
 
