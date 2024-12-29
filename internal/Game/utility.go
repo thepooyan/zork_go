@@ -7,6 +7,8 @@ import (
 	"math/rand"
 	"os"
 	"strings"
+
+	"github.com/charmbracelet/lipgloss"
 )
 
 type VirtualOutput struct {
@@ -39,11 +41,11 @@ func (g *Game) Respond(write ...string) {
 func (g *Game) Tell(write ...string) {
   prefix := "| "
   modify := make([]string, 0)
+  style := lipgloss.NewStyle().Italic(true).Bold(true).Foreground(lipgloss.Color("#aAFAFA")).Align(lipgloss.Right)
 
   for _,i := range write {
-    modify = append(modify, prefix+i)
+    modify = append(modify, prefix+style.Render(i))
   }
-  modify = append(modify, "\n")
   g.VirtualOutput.write(modify...)
 }
 
