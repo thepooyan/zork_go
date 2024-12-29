@@ -3,9 +3,11 @@ package Game
 import (
 	"encoding/gob"
 	"fmt"
-	"github.com/charmbracelet/bubbles/textinput"
 	"os"
 	"strings"
+
+	"github.com/charmbracelet/bubbles/textinput"
+	"github.com/charmbracelet/lipgloss"
 )
 
 type Game struct {
@@ -45,7 +47,8 @@ func (g *Game) prepareInitialPrompt() {
 }
 
 func (g *Game) calculateNextPrompt(response string) {
-  g.VirtualOutput.write("> " + response)
+  style := lipgloss.NewStyle().Foreground(lipgloss.Color("#eb246c")).Bold(true)
+  g.VirtualOutput.write(style.Render("> ") + response)
   action, args := g.analyzeResponse(response)
   action(args...)
   g.VirtualOutput.flush()
