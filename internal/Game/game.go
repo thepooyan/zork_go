@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/charmbracelet/bubbles/spinner"
 	"github.com/charmbracelet/bubbles/textinput"
 	"github.com/charmbracelet/lipgloss"
 )
@@ -16,6 +17,7 @@ type Game struct {
 	Inventory
 	exit      bool
 	textInput textinput.Model
+  spinner spinner.Model
   VirtualOutput
 }
 
