@@ -6,26 +6,29 @@ import (
 )
 
 func (g Game) Init() tea.Cmd {
-  g.prepareInitialPrompt()
+	g.prepareInitialPrompt()
 	return textinput.Blink
 }
 
 func (g Game) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+
+  if g.exit {
+    return g, tea.Quit
+  }
+
 	switch msg := msg.(type) {
-
 	case tea.KeyMsg:
-
 		switch msg.String() {
-		case "ctrl+c", "q":
+		case "ctrl+c":
 			return g, tea.Quit
 		case "enter":
-      if g.innerPrompt != nil {
-        g.innerPrompt(g.textInput.Value())
-        g.textInput.Reset()
-        return g,nil
-      }
-			g.calculateNextPrompt(g.textInput.Value())
-      g.textInput.Reset()
+			if g.innerPrompt != nil {
+				g.innerPrompt(g.textInput.Value())
+				g.innerPrompt = nil
+				return g, nil
+			}
+			g.ResponseRecieved(g.textInput.Value())
+			g.textInput.Reset()
 			return g, nil
 		}
 	}

@@ -47,7 +47,7 @@ func (g *Game) prepareInitialPrompt() {
   g.Describe()
 }
 
-func (g *Game) calculateNextPrompt(response string) {
+func (g *Game) ResponseRecieved(response string) {
   g.VirtualOutput.write(GetStyle(pointer).Render("> ") + response)
   action, args := g.analyzeResponse(response)
   action(args...)

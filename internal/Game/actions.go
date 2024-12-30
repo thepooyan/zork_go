@@ -62,6 +62,7 @@ func (a *Game) LoadGame(args ...string) {
 func (a *Game) SaveGame(args ...string) {
   a.Respond("Saving the game as: ")
   a.GetAnotherPrompt(func(response string) {
+    a.Respond("Please wait...")
     a.Save(response)
   })
 }
