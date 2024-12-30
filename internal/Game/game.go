@@ -51,6 +51,7 @@ func (g *Game) ResponseRecieved(response string) {
   g.VirtualOutput.write(GetStyle(pointer).Render("> ") + response)
   action, args := g.analyzeResponse(response)
   action(args...)
+	g.textInput.Reset()
 }
 
 func (g *Game) ChangeLocation(d Direction) {
@@ -137,4 +138,14 @@ func (g *Game) Load(saveName string) {
 
 func (g *Game) GetAnotherPrompt(callback func(response string, g *Game)) {
   g.innerPrompt = callback
+  g.textInput.Placeholder = ""
+}
+
+func (g *Game) RunInnerPrompt(response string) {
+  if g.innerPrompt != nil {
+    g.innerPrompt(response,g)
+    g.innerPrompt = nil
+    g.textInput.Placeholder = "What do you do?"
+    g.textInput.Reset()
+  }
 }

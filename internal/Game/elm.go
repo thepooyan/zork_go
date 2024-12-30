@@ -23,13 +23,10 @@ func (g Game) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return g, tea.Quit
 		case "enter":
 			if g.innerPrompt != nil {
-				g.innerPrompt(g.textInput.Value(), &g)
-				g.innerPrompt = nil
-        g.textInput.Reset()
-				return g, nil
+        g.RunInnerPrompt(g.textInput.Value())
+        return g, nil
 			}
 			g.ResponseRecieved(g.textInput.Value())
-			g.textInput.Reset()
 			return g, nil
 		}
 	}
@@ -41,10 +38,10 @@ func (g Game) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (g Game) View() string {
 	view := ""
-	view += g.VirtualOutput.Output + "\n"
-	view += "\n"
-
+	view += g.VirtualOutput.Output
+  if g.innerPrompt == nil {
+    view += "\n\n"
+  }
 	view += g.textInput.View()
-
 	return view
 }
