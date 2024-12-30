@@ -24,9 +24,7 @@ func (v *VirtualOutput) write(content ...string) {
 }
 
 func (g *Game) Respond(write ...string) {
-  // folan := append([]string{"\n "}, write...)
-  folan := append(write, "\n")
-  g.VirtualOutput.write(folan...)
+  g.VirtualOutput.write(write...)
 }
 
 func (g *Game) Tell(write ...string) {

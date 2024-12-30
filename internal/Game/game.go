@@ -18,7 +18,7 @@ type Game struct {
 	textInput textinput.Model
   spinner spinner.Model
   VirtualOutput
-  innerPrompt func(response string)
+  innerPrompt func(response string, g *Game)
 }
 
 func initTextInput() textinput.Model {
@@ -135,6 +135,6 @@ func (g *Game) Load(saveName string) {
 	g.Respond("Loaded successfully!")
 }
 
-func (g *Game) GetAnotherPrompt(callback func(response string)) {
+func (g *Game) GetAnotherPrompt(callback func(response string, g *Game)) {
   g.innerPrompt = callback
 }

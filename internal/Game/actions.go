@@ -56,17 +56,17 @@ func (a *Game) LoadGame(args ...string) {
   for _,s := range saves {
     a.Respond("- ", s.Name())
   }
-  a.GetAnotherPrompt(func(response string) {
-    a.Load(response)
-  })
+  // a.GetAnotherPrompt(func(response string) {
+  //   a.Load(response)
+  // })
 }
 
 func (a *Game) SaveGame(args ...string) {
   a.Respond("Saving the game as: ")
-  a.GetAnotherPrompt(func(response string) {
-    a.Respond("Please wait...")
-    a.Save(response)
-  })
+  // a.GetAnotherPrompt(func(response string) {
+  //   a.Respond("Please wait...")
+  //   a.Save(response)
+  // })
 }
 
 func (a *Game) Drop(args ...string) {
@@ -131,9 +131,11 @@ func (a *Game) Open(args ...string) {
 }
 
 func (a *Game) Test(args ...string) {
-  for _,i := range a.currentView.HiddenNotes {
-    a.Respond(i.Content)
-  }
+  a.Respond("testing:")
+  a.Respond("say something else:")
+  a.GetAnotherPrompt(func(response string, g *Game) {
+    g.Respond("second answer: ", response)
+  })
 }
 
 func (a *Game) Search(args ...string) {

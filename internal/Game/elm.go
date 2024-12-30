@@ -23,8 +23,9 @@ func (g Game) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return g, tea.Quit
 		case "enter":
 			if g.innerPrompt != nil {
-				g.innerPrompt(g.textInput.Value())
+				g.innerPrompt(g.textInput.Value(), &g)
 				g.innerPrompt = nil
+        g.textInput.Reset()
 				return g, nil
 			}
 			g.ResponseRecieved(g.textInput.Value())
