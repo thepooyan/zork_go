@@ -28,6 +28,7 @@ func getActionNames(g *Game) map[string]Action {
     "save": g.SaveGame,
     "clear": g.Clear,
     "wait": g.Wait,
+    "load": g.LoadGame,
   }
 }
 
@@ -55,8 +56,9 @@ func (a *Game) LoadGame(args ...string) {
   for _,s := range saves {
     a.Respond("- ", s.Name())
   }
-  // input := GetUserInput()
-  // a.Load(input)
+  a.GetAnotherPrompt(func(response string) {
+    a.Load(response)
+  })
 }
 
 func (a *Game) SaveGame(args ...string) {
