@@ -35,6 +35,7 @@ func getActionNames(g *Game) map[string]Action {
 type Action func(args ...string)
 
 func (a *Game) Wait(args ...string) {
+  a.spin = true
 	a.Respond(a.spinner.View())
 }
 

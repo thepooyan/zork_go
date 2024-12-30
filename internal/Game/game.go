@@ -17,6 +17,7 @@ type Game struct {
 	exit      bool
 	textInput textinput.Model
   spinner spinner.Model
+  spin bool
   VirtualOutput
   innerPrompt func(response string, g *Game)
 }
