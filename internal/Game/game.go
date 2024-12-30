@@ -30,6 +30,13 @@ func initTextInput() textinput.Model {
   return ti
 }
 
+func initSpinner() spinner.Model {
+  sp := spinner.New()
+  sp.Spinner = spinner.Dot
+  sp.Style = GetStyle(spinnerStyle)
+  return sp
+}
+
 func NewGame(worldName string) *Game {
 	world := World{name: worldName, WorldReader: WorldReader{worldName}}
 	view, _ := world.GetView(Coordinate{0, 0})
@@ -40,6 +47,7 @@ func NewGame(worldName string) *Game {
 		Inventory:    Inventory{CarryWeight: CarryWeight{max: 100}},
     textInput: initTextInput(),
     VirtualOutput: VirtualOutput{},
+    spinner: initSpinner(),
 	}
 }
 

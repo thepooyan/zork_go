@@ -19,6 +19,8 @@ func (g Game) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
+    case "g":
+      return g, g.spinner.Tick
 		case "ctrl+c":
 			return g, tea.Quit
 		case "enter":
@@ -28,6 +30,9 @@ func (g Game) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 			g.ResponseRecieved(g.textInput.Value())
 			return g, nil
+    default:
+      _,cmd := g.spinner.Update(msg)
+      return g, cmd
 		}
 	}
 
@@ -38,6 +43,7 @@ func (g Game) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (g Game) View() string {
 	view := ""
+	view += g.spinner.View()
 	view += g.VirtualOutput.Output
   view += "\n\n"
 	view += g.textInput.View()

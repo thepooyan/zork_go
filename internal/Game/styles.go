@@ -7,12 +7,14 @@ type Style int
 const (
   pointer Style = iota
   story
+  spinnerStyle
 )
 
 func GetStyle(s Style) lipgloss.Style {
   smap := map[Style] lipgloss.Style {
     pointer: lipgloss.NewStyle().Foreground(lipgloss.Color("#eb246c")).Bold(true),
     story: lipgloss.NewStyle().Italic(true).Bold(true).Foreground(lipgloss.Color("#aAFAFA")).Align(lipgloss.Right),
+    spinnerStyle: lipgloss.NewStyle().Foreground(lipgloss.Color("205")),
   }
   return smap[s]
 }
