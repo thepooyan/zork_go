@@ -19,8 +19,13 @@ func (g Game) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "ctrl+c", "q":
 			return g, tea.Quit
 		case "enter":
+      if g.innerPrompt != nil {
+        g.innerPrompt(g.textInput.Value())
+        g.textInput.Reset()
+        return g,nil
+      }
 			g.calculateNextPrompt(g.textInput.Value())
-			g.textInput.SetValue("")
+      g.textInput.Reset()
 			return g, nil
 		}
 	}

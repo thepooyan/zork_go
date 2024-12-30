@@ -60,8 +60,7 @@ func (a *Game) LoadGame(args ...string) {
 }
 
 func (a *Game) SaveGame(args ...string) {
-  a.Respond("Saving the game as:")
-  a.VirtualOutput.output = "changing for test"
+  a.Respond("Saving the game as: ")
   a.GetAnotherPrompt(func(response string) {
     a.Save(response)
   })
