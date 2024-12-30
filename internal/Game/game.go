@@ -8,7 +8,6 @@ import (
 
 	"github.com/charmbracelet/bubbles/spinner"
 	"github.com/charmbracelet/bubbles/textinput"
-	"github.com/charmbracelet/lipgloss"
 )
 
 type Game struct {
@@ -48,8 +47,7 @@ func (g *Game) prepareInitialPrompt() {
 }
 
 func (g *Game) calculateNextPrompt(response string) {
-  style := lipgloss.NewStyle().Foreground(lipgloss.Color("#eb246c")).Bold(true)
-  g.VirtualOutput.write(style.Render("> ") + response)
+  g.VirtualOutput.write(GetStyle(pointer).Render("> ") + response)
   action, args := g.analyzeResponse(response)
   action(args...)
 }
