@@ -56,17 +56,17 @@ func (a *Game) LoadGame(args ...string) {
   for _,s := range saves {
     a.Respond("- ", s.Name())
   }
-  // a.GetAnotherPrompt(func(response string) {
-  //   a.Load(response)
-  // })
+  a.GetAnotherPrompt(func(response string,g *Game) {
+    g.Load(response)
+  })
 }
 
 func (a *Game) SaveGame(args ...string) {
   a.Respond("Saving the game as: ")
-  // a.GetAnotherPrompt(func(response string) {
-  //   a.Respond("Please wait...")
-  //   a.Save(response)
-  // })
+  a.GetAnotherPrompt(func(response string, g *Game) {
+    g.Respond("Please wait...")
+    g.Save(response)
+  })
 }
 
 func (a *Game) Drop(args ...string) {
