@@ -137,3 +137,7 @@ func (g *Game) Load(saveName string) {
 	}
 	g.Respond("Loaded successfully!")
 }
+
+func (g *Game) GetAnotherPrompt(callback func(response string)) {
+
+}
