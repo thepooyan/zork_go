@@ -87,7 +87,7 @@ func (a *Game) Lock(args ...string) {
 }
 
 func (a *Game) Love(args ...string) {
-  a.Respond("iloveyou too ^^")
+  a.Respond("iloveyou too ^^" + Emoji(heart))
 }
 
 
