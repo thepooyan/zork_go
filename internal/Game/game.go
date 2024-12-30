@@ -45,7 +45,6 @@ func NewGame(worldName string) *Game {
 
 func (g *Game) prepareInitialPrompt() {
   g.Describe()
-  g.VirtualOutput.flush()
 }
 
 func (g *Game) calculateNextPrompt(response string) {
@@ -53,7 +52,6 @@ func (g *Game) calculateNextPrompt(response string) {
   g.VirtualOutput.write(style.Render("> ") + response)
   action, args := g.analyzeResponse(response)
   action(args...)
-  g.VirtualOutput.flush()
 }
 
 func (g *Game) ChangeLocation(d Direction) {

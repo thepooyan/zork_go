@@ -12,7 +12,6 @@ import (
 )
 
 type VirtualOutput struct {
-  cache string
   output string
 }
 
@@ -22,15 +21,9 @@ func (v *VirtualOutput) clear() {
 
 func (v *VirtualOutput) write(content ...string) {
   l := strings.Join(content, " ")
-  v.cache += l
-  v.cache += "\n"
+  v.output += l
+  v.output += "\n"
 }
-
-func (v *VirtualOutput) flush() {
-  v.output += v.cache
-  v.cache = ""
-}
-
 
 func (g *Game) Respond(write ...string) {
   // folan := append([]string{"\n "}, write...)
