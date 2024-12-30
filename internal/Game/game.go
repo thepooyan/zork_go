@@ -22,7 +22,7 @@ type Game struct {
 
 func initTextInput() textinput.Model {
 	ti := textinput.New()
-	ti.Placeholder = "What do you do? \U0001F600"
+	ti.Placeholder = "What do you do?"
 	ti.Focus()
 	ti.CharLimit = 156
 	ti.Width = 20
