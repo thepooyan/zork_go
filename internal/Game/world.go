@@ -12,10 +12,10 @@ func (w *World) readView(c Coordinate) (View, error) {
 }
 
 func (w *World) GetView(c Coordinate) (View, error) {
-  read, ok := w.cache[c]
+  view, ok := w.cache[c]
 
   if ok {
-    return read, nil
+    return view, nil
   }
 
   return w.readView(c)
