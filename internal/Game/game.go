@@ -48,7 +48,7 @@ func (g *Game) prepareInitialPrompt() {
 }
 
 func (g *Game) ResponseRecieved(response string) {
-  g.VirtualOutput.write(GetStyle(pointer).Render("> ") + response)
+  g.VirtualOutput.write("\n" + GetStyle(pointer).Render("> ") + response)
   action, args := g.analyzeResponse(response)
   action(args...)
 	g.textInput.Reset()
