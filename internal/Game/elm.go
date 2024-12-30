@@ -37,7 +37,7 @@ func (g Game) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (g Game) View() string {
 	view := ""
-	view += g.VirtualOutput.output + "\n"
+	view += g.VirtualOutput.Output + "\n"
 	view += "\n"
 
 	view += g.textInput.View()

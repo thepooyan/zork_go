@@ -10,17 +10,17 @@ import (
 )
 
 type VirtualOutput struct {
-  output string
+  Output string
 }
 
 func (v *VirtualOutput) clear() {
-  v.output = ""
+  v.Output = ""
 }
 
 func (v *VirtualOutput) write(content ...string) {
   l := strings.Join(content, " ")
-  v.output += l
-  v.output += "\n"
+  v.Output += l
+  v.Output += "\n"
 }
 
 func (g *Game) Respond(write ...string) {
