@@ -52,26 +52,23 @@ func (a *Game) LoadGame(args ...string) {
 		a.Respond("You have no save files")
 		return
 	}
-	if len(args) == 2 {
-		a.Load(args[1])
-	} else {
-		a.Respond("Which save to load?")
-		for _, s := range saves {
-			a.Respond("- ", s.Name())
-		}
-		a.GetAnotherPrompt(func(response string, g *Game) {
-			g.Load(response)
-		})
+	a.Respond("Which save to load?")
+	for _, s := range saves {
+		a.Respond("- ", s.Name())
 	}
+	a.GetAnotherPrompt(func(response string, g *Game) {
+		g.Load(response)
+	})
 }
 
 func (a *Game) SaveGame(args ...string) {
-	a.Respond("Please wait...")
 	if len(args) == 2 {
-		a.Save(args[1])
+		a.Respond("yes")
 	} else {
+
 		a.Respond("Saving the game as what?")
 		a.GetAnotherPrompt(func(response string, g *Game) {
+			g.Respond("Please wait...")
 			g.Save(response)
 		})
 	}
