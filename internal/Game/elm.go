@@ -6,34 +6,34 @@ import (
 )
 
 func (g Game) Init() tea.Cmd {
-	g.prepareInitialPrompt()
 	return textinput.Blink
 }
 
 func (g Game) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
-  if g.exit {
-    return g, tea.Quit
-  }
+	if g.exit {
+		return g, tea.Quit
+	}
 
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
-    case "g":
-      return g, g.spinner.Tick
+		case "g":
+			return g, g.spinner.Tick
 		case "ctrl+c":
 			return g, tea.Quit
 		case "enter":
 			if g.innerPrompt != nil {
-        g.RunInnerPrompt(g.textInput.Value())
-        return g, nil
+				g.RunInnerPrompt(g.textInput.Value())
+				return g, nil
 			}
 			g.ResponseRecieved(g.textInput.Value())
 			return g, nil
-    default:
-      _,cmd := g.spinner.Update(msg)
-      return g, cmd
 		}
+	default:
+		var cmd tea.Cmd
+		g.spinner, cmd = g.spinner.Update(msg)
+		return g, cmd
 	}
 
 	var cmd tea.Cmd
@@ -45,7 +45,7 @@ func (g Game) View() string {
 	view := ""
 	view += g.spinner.View()
 	view += g.VirtualOutput.Output
-  view += "\n\n"
+	view += "\n\n"
 	view += g.textInput.View()
 	return view
 }
