@@ -154,3 +154,7 @@ func (g *Game) RunInnerPrompt(response string) {
     g.textInput.Reset()
   }
 }
+
+func (g *Game) TimerUp() {
+  g.spin = false
+}

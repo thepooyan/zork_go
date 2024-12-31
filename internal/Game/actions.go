@@ -4,6 +4,7 @@ import (
 	"os"
 	"slices"
 	"strings"
+	"time"
 )
 
 func getActionNames(g *Game) map[string]Action {
@@ -35,8 +36,11 @@ func getActionNames(g *Game) map[string]Action {
 type Action func(args ...string)
 
 func (a *Game) Wait(args ...string) {
+  a.Respond("waiting...")
   a.spin = true
-	a.Respond(a.spinner.View())
+  time.AfterFunc(time.Second * 2, func() {
+    a.spin = false
+  })
 }
 
 func (a *Game) Clear(args ...string) {

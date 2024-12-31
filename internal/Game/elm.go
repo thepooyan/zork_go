@@ -51,7 +51,10 @@ func (g Game) View() string {
 	view := ""
 	view += g.VirtualOutput.Output
 	view += "\n\n"
-	view += g.textInput.View()
-  view += g.spinner.View()
+  if g.spin {
+    view += g.spinner.View()
+  } else {
+    view += g.textInput.View()
+  }
 	return view
 }
