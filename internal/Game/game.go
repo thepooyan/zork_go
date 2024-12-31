@@ -52,10 +52,6 @@ func NewGame(worldName string) *Game {
 	}
 }
 
-func (g *Game) prepareInitialPrompt() {
-  g.Describe()
-}
-
 func (g *Game) ResponseRecieved(response string) {
   g.VirtualOutput.write("\n" + GetStyle(pointer).Render("> ") + response)
   action, args := g.analyzeResponse(response)

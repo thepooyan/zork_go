@@ -6,7 +6,8 @@ import (
 )
 
 func (g Game) Init() tea.Cmd {
-	return textinput.Blink
+  cmds := []tea.Cmd{g.spinner.Tick, textinput.Blink}
+	return tea.Batch(cmds...)
 }
 
 func (g Game) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
@@ -14,10 +15,6 @@ func (g Game) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	if g.exit {
 		return g, tea.Quit
 	}
-
-  if g.spin {
-    return g, g.spinner.Tick
-  }
 
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
@@ -34,15 +31,20 @@ func (g Game) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			g.ResponseRecieved(g.textInput.Value())
 			return g, nil
 		}
-	default:
-		var cmd tea.Cmd
-		g.spinner, cmd = g.spinner.Update(msg)
-		return g, cmd
 	}
 
-	var cmd tea.Cmd
-	g.textInput, cmd = g.textInput.Update(msg)
-	return g, cmd
+	var cmds []tea.Cmd
+  {
+    var cmd tea.Cmd
+    g.spinner, cmd = g.spinner.Update(msg)
+    cmds = append(cmds, cmd)
+  }
+  {
+    var cmd tea.Cmd
+    g.textInput, cmd = g.textInput.Update(msg)
+    cmds = append(cmds, cmd)
+  }
+	return g, tea.Batch(cmds...)
 }
 
 func (g Game) View() string {
@@ -50,5 +52,6 @@ func (g Game) View() string {
 	view += g.VirtualOutput.Output
 	view += "\n\n"
 	view += g.textInput.View()
+  view += g.spinner.View()
 	return view
 }
